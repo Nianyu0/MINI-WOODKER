@@ -1,0 +1,18 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url(../font/otf/TW/GenSekiGothic2TW-L.otf);
+  }
+  
+  body {
+    font-family: myFirstFont;
+  }
+
+body, p {
+    letter-spacing: 2.5px;
+    line-height: 1.7;
+}
+
+.text-content {
+    letter-spacing: 2.5px;
+    line-height: 1.7;
+}
