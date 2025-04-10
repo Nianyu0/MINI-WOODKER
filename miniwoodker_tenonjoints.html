@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MINI WOODKER</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/all.min.css" />
+    <link rel="stylesheet" href="css/mw.css" />
+    <style>
+      body {
+        font-family: myFirstFont;
+        color: white;
+      }
+
+      .carousel-section {
+        background-color: #000000;
+      }
+
+      .carousel-control-prev-icon,
+      .carousel-control-next-icon {
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        padding: 20px;
+      }
+
+      .carousel-item {
+        padding-top: 2rem;
+        height: 100vh;
+        position: relative;
+      }
+
+      .carousel-item .container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding-bottom: 300px;
+      }
+
+      .tenon-title {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .tenon-images {
+        position: relative;
+        height: 600px;
+        width: 600px;
+        margin: 2rem auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: visible;
+        margin-bottom: 150px;
+      }
+
+      .tenon-main-image {
+        max-width: 300px;
+        height: auto;
+      }
+
+      .tenon-diagram {
+        max-width: 600px;
+        height: auto;
+        opacity: 0;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: all 1s ease-in-out;
+        z-index: 1;
+      }
+
+      .tenon-diagram.left {
+        transform: translateX(-300%);
+      }
+
+      .tenon-diagram.right {
+        transform: translateX(200%);
+      }
+
+      .carousel-item.active .tenon-diagram {
+        opacity: 1;
+        transform: translateX(-50%);
+      }
+
+      .tenon-description {
+        width: 100%;
+        max-width: 800px;
+        padding: 2rem;
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 8px;
+        position: absolute;
+        bottom: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+      }
+
+      .tenon-description p {
+        color: white;
+        margin: 0;
+        font-size: 1.2rem;
+        line-height: 2;
+        letter-spacing: 2px;
+        text-align: justify;
+        padding: 0 1rem;
+      }
+
+      .tenon-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+        margin: 2rem;
+      }
+
+      .tenon-chinese {
+        font-size: 3rem;
+        color: rgba(255, 255, 255, 0.6);
+        margin: 0;
+      }
+
+      .tenon-english {
+        font-size: 2rem;
+        color: rgba(255, 255, 255, 0.6);
+        margin: 0;
+      }
+
+      .d-flex.flex-column.align-items-center {
+        width: 100%;
+        position: relative;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand">
+          <img src="img/logo-01.png" alt="Bootstrap" width="150" height="28" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="miniwoodker_home.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link text-nowrap active"
+                aria-current="page"
+                href="miniwoodker_tenonjoints.html"
+                >Tenon joints</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="miniwoodker_teaching.html">Teaching</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="miniwoodker_shop.html">Shop</a>
+            </li>
+            <li class="nav-item d-none" id="show_user">
+              <a class="nav-link" href="miniwoodker_users.html">Account</a>
+            </li>
+          </ul>
+
+          <div class="d-flex justify-content-lg-end ms-auto align-items-center">
+            <a href="miniwoodker_car.html">
+              <img
+                src="img/shopcar.png"
+                alt=""
+                id="cart_btn"
+                height="25"
+                class="d-none m-2"
+                style="margin-top: 8px"
+              />
+            </a>
+            <button
+              class="btn btn-dark m-2 d-none"
+              onclick="logout()"
+              id="logout_btn"
+            >
+              登出
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="section position-relative">
+      <div
+        style="
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.8);
+          z-index: 1;
+        "
+      ></div>
+
+      <img
+        src="img/wood3.jpg"
+        alt=""
+        style="
+          height: 100vh;
+          width: 100%;
+          object-fit: cover;
+          display: block;
+          position: relative;
+          z-index: 0;
+        "
+      />
+
+      <div
+        style="
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 2;
+          color: white;
+          text-align: left;
+        "
+      >
+        <div class="mb-4">
+          <h5>順紋［平行年輪］｜</h5>
+          <p>木纖維完整，強度較高，適合承重結構的榫接。</p>
+        </div>
+        <div class="mb-4">
+          <h5>橫紋［垂直年輪］｜</h5>
+          <p>纖維斷裂處較脆，榫接時易碎裂，需避免受力過大。</p>
+        </div>
+        <div class="mb-4">
+          <h5>避免逆紋榫接｜</h5>
+          <p>木紋不一致易造成應力不均，長期恐鬆脫或斷裂，影響結構穩定。</p>
+        </div>
+        <div class="mb-4">
+          <h5>榫頭與榫槽尺寸精準｜</h5>
+          <p>榫頭過緊撐裂，過鬆不穩，建議預留 0.1~0.3mm 公差。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section position-relative bg-black">
+      <div id="tenonCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="container">
+              <div class="d-flex flex-column align-items-center">
+                <div class="tenon-header">
+                  <h1 class="tenon-chinese">三 缺 榫</h1>
+                  <div class="d-flex flex-column align-items-center gap-2">
+                    <div class="d-flex gap-4">
+                      <img
+                        src="img/D.png"
+                        alt=""
+                        class="tenon-diagram left w-100"
+                      />
+                      <img
+                        src="img/DD.png"
+                        alt=""
+                        class="tenon-diagram right w-100"
+                      />
+                    </div>
+                  </div>
+                  <h3 class="tenon-english">Bridle joint</h3>
+                </div>
+                <div
+                  class="text-white text-center tenon-description"
+                  style="top: 500px"
+                >
+                  <p class="text-start">
+                    三缺榫應用於簡單程架的角隅處，將榫接部份之材料厚度劃分成三等份，<br />
+                    裂口的部分叫做榫孔，凸出的部分稱之為榫頭。其應用廣泛，衍生的變<br />
+                    化更不勝枚舉，故列為木工最為基本的榫接。<br />
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="container">
+              <div class="d-flex flex-column align-items-center">
+                <div class="tenon-header" style="max-width: 1000px">
+                  <h1 class="tenon-chinese">搭 接 榫</h1>
+                  <div class="d-flex flex-column align-items-center gap-2">
+                    <div class="d-flex gap-4">
+                      <img
+                        src="img/C.png"
+                        alt=""
+                        class="tenon-diagram left w-100"
+                      />
+                      <img
+                        src="img/CC.png"
+                        alt=""
+                        class="tenon-diagram right w-100"
+                      />
+                    </div>
+                  </div>
+                  <h3 class="tenon-english">Cross lap</h3>
+                </div>
+                <div
+                  class="text-white text-center tenon-description"
+                  style="top: 500px"
+                >
+                  <p class="text-start">
+                    搭接榫用於木材橫跨重疊時，為求美觀及結構的穩定性，會將榫頭及榫<br />
+                    孔的尺寸設計成相同，並將榫頭及榫孔的間距設計成榫頭的1/2，以達<br />
+                    到美觀及結構的穩定性。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="container">
+              <div class="d-flex flex-column align-items-center">
+                <div class="tenon-header" style="max-width: 1000px">
+                  <h1 class="tenon-chinese">鳩 尾 榫</h1>
+                  <div class="d-flex flex-column align-items-center gap-2">
+                    <div class="d-flex gap-4">
+                      <img
+                        src="img/B.png"
+                        alt=""
+                        class="tenon-diagram left w-100"
+                      />
+                      <img
+                        src="img/BB.png"
+                        alt=""
+                        class="tenon-diagram right w-100"
+                      />
+                    </div>
+                  </div>
+                  <h3 class="tenon-english">Dovetail joint</h3>
+                </div>
+                <div
+                  class="text-white text-center tenon-description mt-5"
+                  style="top: 500px"
+                >
+                  <p class="text-start">
+                    鳩尾榫因榫頭如燕尾而取其名，通常會以齒狀排列接合，鳩尾榫其結構<br />
+                    牢固穩定。通常運用在板材直角相接的地方，如抽屜、椅背…等地方，<br />
+                    因鳩尾榫咬合面積較大，故經常拉動使用也能保有其結構穩固耐用的特性。<br />
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#tenonCarousel"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#tenonCarousel"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+    <script>
+
+      document
+        .getElementById("tenonCarousel")
+        .addEventListener("slide.bs.carousel", function (event) {
+
+          const nextItem = document.querySelector(
+            ".carousel-item:nth-child(" + (event.to + 1) + ")"
+          );
+          const diagrams = nextItem.querySelectorAll(".tenon-diagram");
+
+          diagrams.forEach((diagram) => {
+            diagram.style.transition = "none";
+            if (diagram.classList.contains("left")) {
+              diagram.style.transform = "translateX(-200%)";
+            } else if (diagram.classList.contains("right")) {
+              diagram.style.transform = "translateX(100%)";
+            }
+            diagram.style.opacity = "0";
+            diagram.offsetHeight; 
+            diagram.style.transition = "all 1s ease-in-out";
+          });
+
+          setTimeout(() => {
+            diagrams.forEach((diagram) => {
+              diagram.style.opacity = "1";
+              diagram.style.transform = "translateX(-50%)";
+            });
+          }, 50);
+        });
+
+      $(function () {
+        checkLogin();
+      });
+
+
+      function checkLogin() {
+        $.ajax({
+          type: "POST",
+          url: "member_control_API_v1.php?action=checkUID",
+          data: JSON.stringify({ UID: getCookie("UID") }),
+          dataType: "json",
+          success: function (data) {
+            if (data.state) {
+              $("#show_user").removeClass("d-none");
+              $("#cart_btn").removeClass("d-none");
+              $("#logout_btn").removeClass("d-none");
+            } else {
+              $("#show_user").addClass("d-none");
+              $("#show_login_name").addClass("d-none");
+              $("#cart_btn").addClass("d-none");
+              $("#logout_btn").addClass("d-none");
+            }
+          },
+          error: function (xhr, status, error) {
+            console.log("檢查登入狀態失敗");
+          },
+        });
+      }
+
+      function logout() {
+        setCookie("UID", "", -1);
+
+        $("#cart_btn").addClass("d-none");
+        $("#logout_btn").addClass("d-none");
+        $("#show_user").addClass("d-none");
+
+        Swal.fire({
+          title: "已登出",
+          icon: "success",
+          confirmButtonColor: "#000000",
+          confirmButtonText: "確認",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "miniwoodker_home.html";
+          }
+        });
+      }
+
+      function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+        let expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+      }
+
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(";").shift();
+      }
+    </script>
+  </body>
+</html>

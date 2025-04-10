@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MINI WOODKER</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/all.min.css">
+  <link rel="stylesheet" href="css/mw.css">
+  <style>
+    body {
+      font-family: myFirstFont;
+      margin: 0;
+      padding: 0;
+      background-color: #000; 
+      color: #fff;    
+      font-family: sans-serif;
+    }
+
+    .teaching-section {
+      background: #000;
+      color: #fff;
+      padding: 2rem;
+      margin-top: 2rem;
+      border: 0;
+      outline: 0;
+      box-shadow: none;
+    }
+ 
+    .image-stack {
+      position: relative;
+      width: 100%;
+      height: 500px;
+      border: 0;
+      outline: 0;
+      box-shadow: none;
+      background: #000;  
+    }
+    .image-stack img {
+      position: absolute;
+      top: 50%;     
+      left: 50%;      
+      transform: translate(-50%, -50%);  
+      max-width: 100%;   
+      max-height: 100%;  
+      width: auto;      
+      height: auto;    
+      object-fit: contain;
+      transition: opacity 0.3s ease;
+      border: 0;
+      outline: 0;
+      box-shadow: none;
+      background: transparent;
+    }
+    .base-image, .guide-image {
+      opacity: 0;
+    }
+    .base-image.active, .guide-image.active {
+      opacity: 1;
+    }
+
+
+    .steps-container {
+      padding-left: 1.5rem;
+    }
+    .step-item {
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      white-space: pre-line;
+    }
+    .step-item:before {
+      content: '';
+      position: absolute;
+      left: -1.5rem;
+      top: 50%;
+      width: 0.6rem;
+      height: 0.6rem;
+      background: #fff;
+      border-radius: 50%;
+      transform: translateY(-50%);
+    }
+    .step-item:hover {
+      color: #00ffea;
+    }
+    .step-item.active {
+      color: #fff;
+      font-weight: bold;
+    }
+    .step-item.active:before {
+      background: #00ffea;
+      width: 0.8rem;
+      height: 0.8rem;
+    }
+
+
+
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand">
+        <img src="img/logo-01.png" alt="Bootstrap" width="150" height="28" />
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="miniwoodker_home.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-nowrap" href="miniwoodker_tenonjoints.html">Tenon joints</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="miniwoodker_teaching.html">Teaching</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="miniwoodker_shop.html">Shop</a>
+          </li>
+          <li class="nav-item d-none" id="show_user">
+            <a class="nav-link" href="miniwoodker_users.html">Account</a>
+          </li>
+        </ul>
+
+        <div class="d-flex justify-content-lg-end ms-auto align-items-center">
+          <a href="miniwoodker_car.html">
+            <img src="img/shopcar.png" alt="" id="cart_btn" height="25" class="d-none m-2" style="margin-top: 8px;" />
+          </a>
+          <button class="btn btn-dark m-2 d-none" onclick="logout()" id="logout_btn">
+            登出
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid p-0">
+    <video class="w-100" autoplay loop muted playsinline s>
+      <source src="img/video.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="container teaching-section mt-5" id="teaching">
+    <div class="row">
+
+      <div class="col-md-8 mb-4">
+        <div class="image-stack w-100">
+  
+          <img 
+            v-for="(group, groupIndex) in imageGroups" 
+            :key="'base'+groupIndex"
+            :src="group.baseImage"
+            :class="['base-image']"
+            alt=""
+            :style="{ opacity: currentStep >= group.startStep && currentStep <= group.endStep ? 1 : 0 }"
+          >
+
+          <img 
+            v-for="(guide, index) in guideImages" 
+            :key="'guide'+index"
+            :src="guide"
+            :class="['guide-image']"
+            alt=""
+            :style="{ opacity: currentStep === index ? 1 : 0 }"
+          >
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="steps-container">
+          <div 
+            v-for="(step, index) in steps" 
+            :key="index" 
+            class="step-item"
+            :class="{ 'active': currentStep === index }"
+            @click="currentStep = index"
+          >
+            {{ step }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script src="js/jquery-3.7.1.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+
+  <script>
+    $(function () {
+      checkLogin();
+    });
+
+    function checkLogin() {
+      $.ajax({
+        type: "POST",
+        url: "member_control_API_v1.php?action=checkUID",
+        data: JSON.stringify({ "UID": getCookie("UID") }),
+        dataType: "json",
+        success: function (data) {
+          if (data.state) {
+            $("#show_user").removeClass("d-none");
+            $("#cart_btn").removeClass("d-none");
+            $("#logout_btn").removeClass("d-none");
+          } else {
+            $("#show_user").addClass("d-none");
+            $("#show_login_name").addClass("d-none");
+            $("#cart_btn").addClass("d-none");
+            $("#logout_btn").addClass("d-none");
+          }
+        },
+        error: function (xhr, status, error) {
+          console.log("檢查登入狀態失敗");
+        }
+      });
+    }
+
+    function logout() {
+      setCookie("UID", "", -1);
+
+      $("#cart_btn").addClass("d-none");
+      $("#logout_btn").addClass("d-none");
+      $("#show_user").addClass("d-none");
+
+      Swal.fire({
+        title: "已登出",
+        icon: "success",
+        confirmButtonColor: "#000000",
+        confirmButtonText: "確認"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "miniwoodker_home.html";
+        }
+      });
+    }
+
+    function setCookie(cname, cvalue, exdays) {
+      const d = new Date();
+      d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+      let expires = "expires=" + d.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+  </script>
+
+
+  <script>
+    const teachingApp = {
+      data() {
+        return {
+          currentStep: 0,
+          steps: [
+            '將模板放置木頭上方',
+            '導軌向內推至與木材齊平',
+            '將四顆螺絲鎖緊',
+            '將模板放置機台孔中',
+            '右側拉門拉開\n將木材放入',
+            '操作軸鎖緊',
+            '啟動機台\n隨著導軌\n移動操作軸\n重複幾次即可完成'
+          ],
+
+          imageGroups: [
+            {
+              baseImage: 'img/bz1.png', 
+              startStep: 0,
+              endStep: 2
+            },
+            {
+              baseImage: 'img/bz3.png',  
+              startStep: 3,
+              endStep: 3
+            },
+            {
+              baseImage: 'img/bz4.png', 
+              startStep: 4,
+              endStep: 6
+            }
+          ],
+ 
+          guideImages: [
+            '',
+            'img/bz1-1.png',
+            'img/bz1-2.png',
+            'img/bz3-1.png',
+            'img/bz4-1.png',
+            'img/bz4-2.png',
+            'img/bz4-3.png'
+            
+          ]
+        };
+      }
+    }
+      Vue.createApp(teachingApp).mount('#teaching');
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MINI WOODKER</title>
+  <link rel="stylesheet" href="css/all.min.css" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="css/mw.css">
+  <style>
+    body {
+      font-family: myFirstFont;
+    }
+  </style>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand">
+        <img src="img/logo-01.png" alt="Bootstrap" width="150" height="28" />
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="miniwoodker_home.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-nowrap" href="miniwoodker_tenonjoints.html">Tenon joints</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="miniwoodker_teaching.html">Teaching</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="miniwoodker_shop.html">Shop</a>
+          </li>
+          <li class="nav-item d-none" id="show_user">
+            <a class="nav-link" href="miniwoodker_users.html">Account</a>
+          </li>
+        </ul>
+
+        <div class="d-flex justify-content-lg-end ms-auto align-items-center">
+          <a href="miniwoodker_car.html">
+            <img src="img/shopcar.png" alt="" id="cart_btn" height="25" class="d-none m-2" style="margin-top: 8px;" />
+          </a>
+          <button type="button" class="btn btn-dark m-2 d-none" id="logout_btn">
+            登出
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-header bg-dark">
+        <h4 class="text-center text-white mb-0">購物車</h4>
+      </div>
+      <div class="card-body p-4" id="cartContent">
+        <div class="container mt-5">
+          <div class="row align-items-center" data-product-id="1" data-stock="10">
+            <div class="col-md-2">
+              <img src="img/22-05.png" class="img-fluid" alt="產品圖片" id="image" name="image" />
+            </div>
+            <div class="col-md-4">
+              <h4 class="card-title fw-900 text-center" id="name" name="name">
+                全套組
+              </h4>
+            </div>
+            <div class="col-md-2">
+              <div class="d-flex justify-content-center align-items-center mt-3">
+                <button class="btn btn-light" onclick="decreaseQuantity()">-</button>
+                <span class="mx-3 quantity-value">1</span>
+                <button class="btn btn-light" onclick="increaseQuantity()">+</button>
+              </div>
+            </div>
+            <div class="col-md-2 text-center">
+              <h5 id="price" name="price">$21,999</h5>
+            </div>
+            <div class="col-md-2 text-end">
+              <button class="btn btn-dark btn-sm" id="remove_btn">
+                <i class="fa-regular fa-trash-can"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="row justify-content-end">
+          <div class="col-md-3">
+            <button class="btn btn-dark" id="checkout_btn">結帳</button>
+            <button class="btn btn-outline-dark ms-2" onclick="window.location.href='miniwoodker_shop.html'">
+              取消
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="js/jquery-3.7.1.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    $(function () {
+
+      checkLogin();
+      cartContent();
+
+
+      $("#logout_btn").on("click", function () {
+        logout();
+      });
+    });
+
+    function checkLogin() {
+      $.ajax({
+        type: "POST",
+        url: "member_control_API_v1.php?action=checkUID",
+        data: JSON.stringify({ UID: getCookie("UID") }),
+        dataType: "json",
+        success: function (data) {
+          if (data.state) {
+            $("#show_user").removeClass("d-none");
+            $("#cart_btn").removeClass("d-none");
+            $("#logout_btn").removeClass("d-none");
+          } else {
+            $("#show_user").addClass("d-none");
+            $("#show_login_name").addClass("d-none");
+            $("#cart_btn").addClass("d-none");
+            $("#logout_btn").addClass("d-none");
+          }
+        },
+        error: function () {
+          console.log("檢查登入狀態失敗");
+        }
+      });
+    }
+    function logout() {
+      setCookie("UID", "", -1);
+
+      $("#cart_btn").addClass("d-none");
+      $("#logout_btn").addClass("d-none");
+      $("#show_user").addClass("d-none");
+
+      Swal.fire({
+        title: "已登出",
+        icon: "success",
+        confirmButtonColor: "#000000",
+        confirmButtonText: "確認"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "miniwoodker_home.html";
+        }
+      });
+    }
+
+    function setCookie(cname, cvalue, exdays) {
+      const d = new Date();
+      d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+      const expires = "expires=" + d.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+
+    function cartContent() {
+      const uid = getCookie("UID");
+
+      if (!uid) {
+        console.error("請登入會員");
+        return;
+      }
+
+      $.ajax({
+        type: "POST",
+        url: "member_control_API_v1.php?action=checkUID",
+        data: JSON.stringify({ UID: uid }),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+          if (response.state && response.login_data) {
+            const memberId = response.login_data.ID || response.login_data.id;
+
+            $.ajax({
+              type: "POST",
+              url: "car_API.php?action=getCart",
+              data: JSON.stringify({ User_id: memberId }),
+              contentType: "application/json",
+              dataType: "json",
+              success: function (data) {
+                if (data.state && data.data && data.data.length > 0) {
+                  $("#cartContent").empty();
+                  const container = $('<div class="container mt-5"></div>');
+                  let totalAmount = 0;
+
+                  data.data.forEach((item) => {
+                    totalAmount += parseInt(item.Price);
+
+                    const cartItem = `
+                      <div class="row align-items-center mb-3" data-product-id="${item.Product_id}">
+                        <div class="col-md-2">
+                          <img src="${item.Image}" 
+                               class="img-fluid" 
+                               alt="產品圖片"
+                               style="width: 100%; height: auto; object-fit: contain;">
+                        </div>
+                        <div class="col-md-4">
+                          <h4 class="card-title fw-900 text-center">${item.Name}</h4>
+                        </div>
+                        <div class="col-md-2">
+                          <div class="d-flex justify-content-center align-items-center">
+                            <button class="btn btn-light decrease-btn">-</button>
+                            <span class="mx-3 quantity-value">${item.Quantity}</span>
+                            <button class="btn btn-light increase-btn">+</button>
+                          </div>
+                        </div>
+                        <div class="col-md-2 text-center">
+                          <h5>$${item.Price}</h5>
+                        </div>
+                        <div class="col-md-2 text-end">
+                          <button class="btn btn-dark btn-sm remove-item" onclick="removeCartItem(${item.Product_id})">
+                            <i class="fas fa-trash-alt"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <hr />
+                    `;
+                    container.append(cartItem);
+                  });
+
+                  const checkoutSection = `
+                    <div class="row justify-content-end align-items-center">
+                      <div class="col-md-4 text-end">
+                        <h4>總計: $${totalAmount}</h4>
+                      </div>
+                      <div class="col-md-3">
+                        <button class="btn btn-dark w-100 mb-2" onclick="checkout()">結帳</button>
+                        <button class="btn btn-outline-dark w-100" onclick="window.location.href='miniwoodker_shop.html'">
+                          繼續購物
+                        </button>
+                      </div>
+                    </div>
+                  `;
+                  container.append(checkoutSection);
+                  $("#cartContent").append(container);
+
+                  container.find('.decrease-btn').on('click', function () {
+                    const row = $(this).closest('.row');
+                    const productId = row.data('product-id');
+                    const quantitySpan = $(this).siblings('.quantity-value');
+                    const currentQty = parseInt(quantitySpan.text());
+                    if (currentQty > 1) {
+                      updateCartQuantity(productId, currentQty - 1);
+                    }
+                  });
+
+                  container.find('.increase-btn').on('click', function () {
+                    const row = $(this).closest('.row');
+                    const productId = row.data('product-id');
+                    const quantitySpan = $(this).siblings('.quantity-value');
+                    const currentQty = parseInt(quantitySpan.text());
+                    updateCartQuantity(productId, currentQty + 1);
+                  });
+                } else {
+                  $("#cartContent").html(`
+                    <div class="text-center mt-5">
+                      <h4>購物車是空的</h4>
+                      <button class="btn btn-outline-dark mt-3" onclick="window.location.href='miniwoodker_shop.html'">
+                        繼續購物
+                      </button>
+                    </div>
+                  `);
+                }
+              }
+            });
+          } else {
+            Swal.fire({
+              title: "系統錯誤",
+              text: "無法驗證會員信息，請重新登入",
+              icon: "error",
+              confirmButtonColor: "#000000",
+              confirmButtonText: "確認"
+            }).then(() => {
+              window.location.href = "miniwoodker_home.html";
+            });
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error("會員驗證失敗:", {
+            status: status,
+            error: error,
+            response: xhr.responseText
+          });
+          Swal.fire({
+            title: "系統錯誤",
+            text: "無法驗證會員信息，請重新登入",
+            icon: "error",
+            confirmButtonColor: "#000000",
+            confirmButtonText: "確認"
+          }).then(() => {
+            window.location.href = "miniwoodker_home.html";
+          });
+        }
+      });
+    }
+
+    function decreaseQuantity(btn) {
+      const span = $(btn).siblings(".quantity-value");
+      const qty = parseInt(span.text(), 10);
+      const productId = $(btn).closest(".row").data("product-id");
+      if (qty > 1) {
+        const newQty = qty - 1;
+        updateCartQuantity(productId, newQty);
+      }
+    }
+
+    function increaseQuantity(btn) {
+      const span = $(btn).siblings(".quantity-value");
+      const qty = parseInt(span.text(), 10);
+      const productId = $(btn).closest(".row").data("product-id");
+      const newQty = qty + 1;
+      updateCartQuantity(productId, newQty);
+    }
+
+    function updateCartQuantity(productId, quantity) {
+      const uid = getCookie("UID");
+
+      if (!uid) {
+        Swal.fire({
+          title: "請先登入",
+          icon: "warning",
+          confirmButtonColor: "#000000",
+          confirmButtonText: "確認"
+        });
+        return;
+      }
+
+      console.log("開始更新購物車:", { productId, quantity, uid });
+
+      $.ajax({
+        type: "POST",
+        url: "member_control_API_v1.php?action=checkUID",
+        data: JSON.stringify({ UID: uid }),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+          console.log("會員驗證響應:", response);
+          if (response.state && response.login_data) {
+            const memberId = response.login_data.ID;
+            console.log("會員ID:", memberId);
+
+            const updateData = {
+              User_id: memberId,
+              Product_id: parseInt(productId),
+              Quantity: parseInt(quantity)
+            };
+
+            console.log("發送更新數據:", updateData);
+
+            $.ajax({
+              type: "POST",
+              url: "car_API.php?action=updateQuantity",
+              data: JSON.stringify(updateData),
+              contentType: "application/json",
+              dataType: "json",
+              success: function (response) {
+
+                if (response.state) {
+
+                  cartContent();
+                } else {
+                  console.error("更新失敗:", response.message);
+                  Swal.fire({
+                    title: "更新數量失敗",
+                    text: response.message || "請稍後再試",
+                    icon: "error",
+                    confirmButtonColor: "#000000",
+                    confirmButtonText: "確認"
+                  });
+                }
+              },
+              error: function (xhr, status, error) {
+                console.error("更新數量失敗:", {
+                  status: status,
+                  error: error,
+                  response: xhr.responseText
+                });
+                Swal.fire({
+                  title: "系統錯誤",
+                  text: "無法更新數量，請稍後再試",
+                  icon: "error",
+                  confirmButtonColor: "#000000",
+                  confirmButtonText: "確認"
+                });
+              }
+            });
+          } else {
+            console.error("會員驗證失敗:", response);
+            Swal.fire({
+              title: "驗證失敗",
+              text: "請重新登入",
+              icon: "error",
+              confirmButtonColor: "#000000",
+              confirmButtonText: "確認"
+            });
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error("會員驗證失敗:", {
+            status: status,
+            error: error,
+            response: xhr.responseText
+          });
+          Swal.fire({
+            title: "系統錯誤",
+            text: "無法驗證會員信息，請重新登入",
+            icon: "error",
+            confirmButtonColor: "#000000",
+            confirmButtonText: "確認"
+          });
+        }
+      });
+    }
+
+    function removeItem(btn) {
+      $(btn).closest(".cart-item").remove();
+    }
+    
+    function removeCartItem(productId) {
+      const uid = getCookie("UID");
+
+      $.ajax({
+        type: "POST",
+        url: "member_control_API_v1.php?action=checkUID",
+        data: JSON.stringify({ UID: uid }),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+          if (response.state && response.login_data) {
+            const memberId = response.login_data.ID;
+
+            Swal.fire({
+              title: '確定要刪除此商品嗎？',
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#000000',
+              cancelButtonColor: '#6c757d',
+              confirmButtonText: '確定',
+              cancelButtonText: '取消'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                $.ajax({
+                  type: "POST",
+                  url: "car_API.php?action=removeItem",
+                  data: JSON.stringify({
+                    User_id: memberId,
+                    Product_id: productId
+                  }),
+                  contentType: "application/json",
+                  dataType: "json",
+                  success: function (response) {
+                    if (response.state) {
+                      Swal.fire({
+                        title: '已刪除商品',
+                        icon: 'success',
+                        confirmButtonColor: '#000000'
+                      }).then(() => {
+                        cartContent();
+                      });
+                    }
+                  }
+                });
+              }
+            });
+          }
+        }
+      });
+    }
+
+    function checkout() {
+      const uid = getCookie("UID");
+
+      $.ajax({
+        type: "POST",
+        url: "member_control_API_v1.php?action=checkUID",
+        data: JSON.stringify({ UID: uid }),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+          if (response.state && response.login_data) {
+            const memberId = response.login_data.ID;
+
+            Swal.fire({
+              title: '確定要結帳嗎？',
+              icon: 'question',
+              showCancelButton: true,
+              confirmButtonColor: '#000000',
+              cancelButtonColor: '#6c757d',
+              confirmButtonText: '確定',
+              cancelButtonText: '取消'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                $.ajax({
+                  type: "POST",
+                  url: "car_API.php?action=checkout",
+                  data: JSON.stringify({
+                    User_id: memberId
+                  }),
+                  contentType: "application/json",
+                  dataType: "json",
+                  success: function (response) {
+                    if (response.state) {
+                      Swal.fire({
+                        title: '結帳成功！',
+                        text: '訂單編號：' + response.data.order_id,
+                        icon: 'success',
+                        confirmButtonColor: '#000000'
+                      }).then(() => {
+                        window.location.href = 'miniwoodker_shop.html';
+                      });
+                    } else {
+                      Swal.fire({
+                        title: '結帳失敗',
+                        text: response.message,
+                        icon: 'error',
+                        confirmButtonColor: '#000000'
+                      });
+                    }
+                  }
+                });
+              }
+            });
+          }
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>

@@ -31,8 +31,7 @@
 }
     .about-section {
       position: relative;
-      padding: 50px 20px;
-      min-height: 100vh;
+      padding: 10px 10px;
       overflow: hidden;
     }
 
@@ -42,8 +41,8 @@
       font-weight: bold;
       color: rgba(255, 255, 255, 0.2);
       position: absolute;
-      top: 50px;
-      left: 50px;
+      top: 10px;
+      left: 10px;
       pointer-events: none;
       user-select: none;
     }
@@ -246,8 +245,6 @@
       </div>
     </nav>
 
-
-    <!-- register_Modal -->
     <div class="modal fade text-dark" id="register_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog    modal-lg  ">
         <div class="modal-content">
@@ -364,7 +361,6 @@
       </div>
     </div>
 
-    <!-- login_Modal -->
     <div class="modal fade text-dark" id="login_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -401,7 +397,6 @@
       </div>
     </div>
 
-    <!--內容-->
     <div class="one-section">
       <img src="img/0227-05.png" class="w-100" alt="" style="
           object-fit: cover;
@@ -410,10 +405,9 @@
         " />
     </div>
 
-
     <section class="about-section">
       <hr style="margin-left: 45%; margin-right: 5%; border-top: 1px solid #fff;">
-      <div class="big-title mt-5">關 於</div>
+      <div class="big-title mt-3">關 於</div>
 
       <div class="about-content mt-5 mb-5">
         <div
@@ -452,10 +446,9 @@
         </div>
 
       </div>
+    </section>
 
-
-      <!-- 輪播-->
-      <div id="carouselExampleFade" class="carousel slide carousel-fade mt-5 mb-5" data-bs-ride="carousel">
+      <div id="carouselExampleFade" class="carousel slide carousel-fade mt-3 mb-5" data-bs-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active" data-bs-interval="3000">
             <img src="img/p1.jpg" class="d-block w-100" alt="...">
@@ -477,10 +470,8 @@
         </button>
       </div>
 
-      <!-- 模式-->
-      <div class="container my-5 mt-5">
+      <div class="container ">
         <div class="row">
-          <!-- 左側：模式選單 -->
           <div class="col-12 col-md-4">
             <div class="mode-menu text-center">
               <ul>
@@ -494,8 +485,7 @@
                 機台以遮罩覆蓋，打造封閉式設計，有效降低噪音並提升操作安全性。內建集塵功能，確保創作過程乾淨俐落，讓使用者無需額外花費時間與精力清理，專注於創意本身。
               </p>
             </div>
-          
-          <!-- 右側：圖片與文字 -->
+
           <div class="col-12 col-md-8">
             <div class="mode-content">
               <img id="modeImage" class="img-fluid mode-image" src="img/jt.png" alt="mode1" />
@@ -507,10 +497,10 @@
       </div>
 
       <section class="about-section">
-        <div class="big-title mt-5">榫 接</div>
+        <div class="big-title mt-3">榫 接</div>
     
         <div class="about-content">
-            <div style="margin-top: 100px; position: relative; display: flex; justify-content: center;">
+            <div style="margin-top: 200px; display: flex; justify-content: center;">
                 <div style="width: 60%; text-align: left;">
                     <p>
                         榫接是木作中巧妙的結構設計，透過凹凸嵌合，不需釘膠也能牢固相連。它展現工匠的<br>
@@ -531,11 +521,13 @@
         <hr style="margin-right: 45%; margin-left: 5%; margin-top: 3%; border-top: 1px solid #fff;">
     </section>
 
+    <div style="height: 10px;"></div>
+
     <section class="about-section">
-      <div class="big-title mt-5">教 學</div>
+      <div class="big-title mt-3">教 學</div>
   
       <div class="about-content">
-          <div style="margin-top: 100px; position: relative; display: flex; justify-content: center;">
+          <div style="margin-top: 200px;  display: flex; justify-content: center;">
               <div style="width: 60%; text-align: left;">
                   <p>
                     透過圖文結合，讓木工操作更加直觀易懂，每個步驟清晰呈現，使學習不再困難。無論<br>
@@ -556,12 +548,13 @@
       </div>
       <hr style="margin-left: 45%; margin-right: 5%; margin-top: 3%; border-top: 1px solid #fff;">
   </section>
+  <div style="height: 10px;"></div>
 
   <section class="about-section">
     <div class="big-title">商 店</div>
 
     <div class="about-content ">
-        <div style="margin-top: 100px; position: relative; display: flex; justify-content: center;">
+        <div style="margin-top: 100px; display: flex; justify-content: center;">
             <div style="width: 60%; text-align: left;">
                 <p>
                   在這裡，你可以選購 MINI WOODKER 全系列產品，為你的木工創作做好萬全準備。<br>
@@ -582,8 +575,9 @@
         </div>
     </div>  
 </section>
+<div style="height: 150px;"></div>
 
-<footer class="py-3 " style="background-color: #5e5e5e; ">
+<footer class="py-3 mt-5" style="background-color: #5e5e5e; ">
   <div class="container">
     <div class="row align-items-center text-white">
 
@@ -612,7 +606,6 @@
 
       </div>
 
-      <!-- 右側標語 -->
       <div class="col-md-3 text-end fw-bold" style="margin-top: 6%;">
         MINI WOODKER展現神級木作!
       </div>
@@ -655,21 +648,15 @@
           }
         ];
 
-        // 取得左側所有 li
         const menuItems = document.querySelectorAll(".mode-menu li");
-        // 取得右側的圖片與文字節點
         const modeImage = document.getElementById("modeImage");
         const modeText = document.getElementById("modeText");
 
-        // 為每個 li 綁定點擊事件
         menuItems.forEach((li) => {
           li.addEventListener("click", () => {
-            // 1. 移除所有 li 的 active class
             menuItems.forEach(item => item.classList.remove("active"));
-            // 2. 給當前被點擊的 li 加上 active class
             li.classList.add("active");
 
-            // 3. 根據 data-index 切換圖片與文字
             const index = parseInt(li.dataset.index, 10);
             modeImage.src = modes[index].image;
             modeText.textContent = modes[index].text;
@@ -677,19 +664,15 @@
         });
 
         $(function () {
-          // 檢查是否有 UID
           if (!getCookie("UID")) {
             $("#login_Modal").modal("hide");
           } else {
           }
 
-          // 【登入】網站頁面 -> 確保 cookie之UID驗證碼 是否「存在」
           if (getCookie("UID")) {
             var json_data = {};
 
             json_data["UID"] = getCookie("UID");
-
-            // console.log(    JSON.stringify( json_data  )     )  ;
 
             $.ajax({
               type: "POST",
@@ -721,13 +704,10 @@
             type: "GET",
             url: "js/CityCountyData.json",
             dataType: "json",
-
             async: false,
-
             success: function (data) {
               city = data;
             },
-
             error: function () {
               console.log("error--js/CityCountyData.json");
             },
@@ -748,17 +728,11 @@
             $("#select_city").append(strHtml);
           });
 
-          // 選取「縣市」 -> 自動 監控 【對應】之鄉鎮市(區)
-
           $("#select_city").change(function () {
             select_city = $(this).val();
 
             city.forEach(function (item) {
               if (item.CityName == select_city) {
-                // console.log(  item          )  ;
-                // console.log(  item.CityName )  ;
-
-                // console.log(  item.AreaList )  ;
 
                 $("#select_area").empty();
 
@@ -767,24 +741,16 @@
                 );
 
                 item.AreaList.forEach(function (item_2) {
-                  //console.log(  item_2.AreaName )
 
                   var strhtml = `   <option     value=" ${item_2.AreaName} "  >    ${item_2.AreaName}   </option>   `;
-
                   $("#select_area").append(strhtml);
                 });
               }
             });
           });
 
-          // 即時監控【註冊】欄位
-
           $("#reg_username").bind("input propertychange", function () {
             if ($(this).val().length > 2 && $(this).val().length < 7) {
-              // $( this ).removeClass( "is-invalid" )    ;
-              // $( this ).addClass(    "is-valid"   )    ;
-
-              // boolean_reg_username    =  true          ;
 
               var json_data = {};
 
@@ -905,9 +871,6 @@
             });
           });
 
-
-          // 即時監控【同意條款】
-
           $("#check_term").change(function () {
             console.log($(this).is(":checked"));
 
@@ -928,7 +891,6 @@
             }
           });
 
-          // 【註冊  確認】按鈕監控
           $("#reg_save_btn").click(function () {
             if (
               boolean_reg_username &&
@@ -946,8 +908,6 @@
               json_data["e_Mail"] = $("#reg_email").val();
               json_data["user_Phone"] = $("#reg_phone").val();
               json_data["user_Address"] = $("#select_city").val() + $("#select_city").val() + $("#reg_address").val();
-
-              // json_data["user_Address"] = "彰化火車站";
 
               console.log(JSON.stringify(json_data));
 
@@ -978,8 +938,6 @@
             }
           });
 
-          // 即時監控【登錄】欄位
-
           $("#login_username").bind("input propertychange", function () {
             if ($(this).val().length > 0) {
               $(this).removeClass("is-invalid");
@@ -1004,7 +962,6 @@
             }
           });
 
-          // 【登錄  確認】按鈕監控
           $("#login_save_btn").click(function () {
             if (boolean_login_username && boolean_login_password) {
               var json_data = {};
@@ -1060,7 +1017,6 @@
 
             if (result.state) {
               localStorage.setItem("user_data", JSON.stringify(result.login_data));
-              // 根據角色導向不同頁面
               if (result.login_data.role === "管理員") {
                 window.location.href = "miniwoodker_admin.html";
               } else {
@@ -1069,8 +1025,6 @@
             }
           });
 
-
-          // 【登出  確認】按鈕監控
           $("#logout_btn").click(function () {
             setCookie("UID", "", 7);
             location.href = "miniwoodker_home.html";
@@ -1110,10 +1064,8 @@
               confirmButtonColor: "#000000",
             }).then((result) => {
               if (result.isConfirmed) {
-                //login消失
                 $("#loginModal").modal("hide");
 
-                //呈現 登錄者之歡迎詞
                 $("#show_login_name").removeClass("d-none");
                 $("#welcome_user").text(data.login_data.Username);
                 if (data.login_data.Level == 10) {
@@ -1124,18 +1076,13 @@
                   location.href = "miniwoodker_admin.html";
                 }
 
-                // 隱藏 「註冊」及「登錄」按鈕
                 $("#register_btn").addClass("d-none");
                 $("#login_btn").addClass("d-none");
-
-                // 顯示「購物車」和「登出」按鈕
                 $("#cart_btn").removeClass("d-none");
                 $("#logout_btn").removeClass("d-none");
 
-                // 顯示「會員資料」按鈕
                 $("#show_user").removeClass("d-none");
 
-                //uid驗證碼寫入cookie
                 setCookie("UID", data.login_data.UID, 7);
               }
             });
@@ -1153,10 +1100,9 @@
           console.log(data);
 
           if (data.state) {
-            // 隱藏 「登錄之modal」模板畫面
+
             $("#login_Modal").modal("hide");
 
-            //呈現 登錄者之歡迎詞
             $("#show_login_name").removeClass("d-none");
             $("#welcome_user").text(data.login_data.Username);
             if (data.login_data.Level == 10) {
@@ -1165,15 +1111,12 @@
               $("#level").text("[管理者]");
             }
 
-            // 隱藏 「註冊」及「登錄」按鈕
             $("#register_btn").addClass("d-none");
             $("#login_btn").addClass("d-none");
 
-            // 顯示「購物車」和「登出」按鈕
             $("#cart_btn").removeClass("d-none");
             $("#logout_btn").removeClass("d-none");
 
-            // 顯示「會員資料」按鈕
             $("#show_user").removeClass("d-none");
           } else {
             Swal.fire({
@@ -1230,7 +1173,6 @@
 
         function logout() {
           setCookie("UID", "", -1);
-          // 隱藏購物車圖標
           $("#cart_btn").addClass("d-none");
           Swal.fire({
             title: "已登出",

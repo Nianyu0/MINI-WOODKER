@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MINI WOODKER</title>
+  <link rel="stylesheet" href="css/all.min.css" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/mw.css">
+  <style>
+    body {
+      font-family: myFirstFont;
+    }
+
+    .modal-content {
+      background-color: #000;
+      border-radius: 0;
+    }
+
+    .thumbnail {
+      border: 2px solid transparent;
+      transition: border-color 0.3s;
+    }
+
+    .thumbnail.active {
+      border-color: #fff;
+    }
+
+    .quantity-btn {
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .main-product-image {
+      background-color: #000;
+      width: 100%;
+      height: auto;
+    }
+
+    .main-image-container {
+      width: 500px;
+      height: 500px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #000;
+    }
+
+    .main-image-container img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand">
+        <img src="img/logo-01.png" alt="Bootstrap" width="150" height="28" />
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="miniwoodker_home.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-nowrap" href="miniwoodker_tenonjoints.html">Tenon joints</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="miniwoodker_teaching.html">Teaching</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="miniwoodker_shop.html">Shop</a>
+          </li>
+          <li class="nav-item d-none" id="show_user">
+            <a class="nav-link" href="miniwoodker_users.html">Account</a>
+          </li>
+        </ul>
+
+        <div class="d-flex justify-content-lg-end ms-auto align-items-center">
+          <a href="miniwoodker_car.html">
+            <img src="img/shopcar.png" alt="" id="cart_btn" height="25" class="d-none m-2" style="margin-top: 8px;" />
+          </a>
+          <button class="btn btn-dark m-2 d-none" onclick="logout()" id="logout_btn">
+            登出
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <div class="row">
+      <h3>MINI WOODKER - Shop</h3>
+      <hr />
+      <div id="mw_product">
+        <div class="container-fluid mt-4">
+          <div class="row">
+            <div class="col-12  position-relative" style="width:1300px;">
+              <img src="img/sp1.png" alt="" class="img-fluid w-100 image" style="object-fit: cover;">
+              <button class="btn btn-light position-absolute" style="bottom:40px; right:80px;" data-bs-toggle="modal"
+                data-bs-target="#productDetailModal_A" data-product-id="${item.id}" onclick="showProductDetails(this)"
+                data-image="${item.Image}" data-name="${item.Name}" data-content="${item.Content}"
+                data-price="${item.Price}" data-stock="${item.Stock}">
+                了解詳情
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid mt-4">
+          <div class="row">
+            <div class="col-12  position-relative" style="width:1300px;">
+              <img src="img/sp2.png" alt="" class="img-fluid w-100" style="object-fit: cover;">
+              <button class="btn btn-light position-absolute" style="bottom:25px; right:80px;" data-bs-toggle="modal"
+                data-bs-target="#productDetailModal_B" data-product-id="${item.id}" onclick="showProductDetails(this)"
+                data-image="${item.Image}" data-name="${item.Name}" data-content="${item.Content}"
+                data-price="${item.Price}" data-stock="${item.Stock}">
+                了解詳情
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid mt-4">
+          <div class="row">
+            <div class="col-md-6 position-relative">
+              <img src="img/sp3.png" alt="" class="img-fluid w-100" style="object-fit: cover;">
+              <button class="btn btn-light position-absolute" style="bottom:35px; right:85px;" data-bs-toggle="modal"
+                data-bs-target="#productDetailModal_C" data-product-id="${item.id}" onclick="showProductDetails(this)"
+                data-image="${item.Image}" data-name="${item.Name}" data-content="${item.Content}"
+                data-price="${item.Price}" data-stock="${item.Stock}">
+                了解詳情
+              </button>
+            </div>
+
+            <div class="col-md-6 position-relative">
+              <img src="img/sp4.png" alt="" class="img-fluid w-100" style="object-fit: cover;">
+              <button class="btn btn-light position-absolute" style="bottom:15px; right:90px;" data-bs-toggle="modal"
+                data-bs-target="#productDetailModal_D" data-product-id="${item.id}" onclick="showProductDetails(this)"
+                data-image="${item.Image}" data-name="${item.Name}" data-content="${item.Content}"
+                data-price="${item.Price}" data-stock="${item.Stock}">
+                了解詳情
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-fluid mt-4">
+          <div class="row">
+            <div class="col-md-3 position-relative">
+              <img src="img/sp5.png" alt="" class="img-fluid w-100" style="object-fit: cover;">
+              <button class="btn btn-light position-absolute" style="bottom:25px; right: 40px;" data-bs-toggle="modal"
+                data-bs-target="#productDetailModal_E" data-product-id="${item.id}" onclick="showProductDetails(this)"
+                data-image="${item.Image}" data-name="${item.Name}" data-content="${item.Content}"
+                data-price="${item.Price}" data-stock="${item.Stock}">
+                了解詳情
+              </button>
+            </div>
+
+            <div class="col-md-3 position-relative">
+              <img src="img/sp6.png" alt="" class="img-fluid w-100" style="object-fit: cover;">
+              <button class="btn btn-light position-absolute" style="bottom:25px; right:40px;" data-bs-toggle="modal"
+                data-bs-target="#productDetailModal_F" data-product-id="${item.id}" onclick="showProductDetails(this)"
+                data-image="${item.Image}" data-name="${item.Name}" data-content="${item.Content}"
+                data-price="${item.Price}" data-stock="${item.Stock}">
+                了解詳情
+              </button>
+            </div>
+
+            <div class="col-md-3 position-relative">
+              <img src="img/sp7.png" alt="" class="img-fluid w-100" style="object-fit: cover;">
+              <button class="btn btn-light position-absolute" style="bottom:25px; right:40px;" data-bs-toggle="modal"
+                data-bs-target="#productDetailModal_G" data-product-id="${item.id}" onclick="showProductDetails(this)"
+                data-image="${item.Image}" data-name="${item.Name}" data-content="${item.Content}"
+                data-price="${item.Price}" data-stock="${item.Stock}">
+                了解詳情
+              </button>
+            </div>
+
+            <div class="col-md-3 position-relative">
+              <img src="img/sp8.png" alt="" class="img-fluid w-100" style="object-fit: cover;">
+              <button class="btn btn-light position-absolute" style="bottom:25px; right:40px;" data-bs-toggle="modal"
+                data-bs-target="#productDetailModal_H" data-product-id="${item.id}" onclick="showProductDetails(this)"
+                data-image="${item.Image}" data-name="${item.Name}" data-content="${item.Content}"
+                data-price="${item.Price}" data-stock="${item.Stock}">
+                了解詳情
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container mt-5">
+        <h4>木材</h4>
+        <hr />
+        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4" id="wood">
+          <div class="col mb-4">
+            <div class="card position-relative" style="width: 300px;">
+              <img src="img/wood2.webp" alt="" class="card-img-top " style="object-fit: cover; height: 200px;">
+              <button class="btn btn-light" style="position: absolute;bottom: 10px;right: 10px;" data-bs-toggle="modal"
+                data-bs-target="#productDetailModal" data-product-id="${item.id}" data-image="${item.Image}"
+                data-name="${item.Name}" data-content="${item.Content}" data-price="${item.Price}"
+                data-stock="${item.Stock}" onclick="showProductDetails(this)">
+                了解詳情
+              </button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container mt-5">
+        <h4>家具</h4>
+        <hr />
+        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4" id="furniture">
+          <div class="col mb-4">
+            <div class="card position-relative" style="width: 300px;">
+              <img src="img/wood2.webp" class="card-img-top img-fluid" style="height: 200px; object-fit: cover;" />
+              <button class="btn btn-light" style="position: absolute;bottom: 10px;right: 10px;" data-bs-toggle="modal"
+                data-bs-target="#productDetailModal" data-product-id="${item.id}" data-image="${item.Image}"
+                data-name="${item.Name}" data-content="${item.Content}" data-price="${item.Price}"
+                data-stock="${item.Stock}" onclick="showProductDetails(this)">
+                了解詳情
+              </button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container mt-5 mb-5">
+        <h4>其他</h4>
+        <hr />
+        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4" id="other">
+          <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card position-relative" style="width: 300px;">
+              <img src="img/wood2.webp" class="card-img-top" style="height: 200px; object-fit: cover;" alt="" />
+              <button class="btn btn-light" style="position: absolute;bottom: 10px;right: 10px;" data-bs-toggle="modal"
+                data-bs-target="#productDetailModal" data-product-id="${item.id}" data-image="${item.Image}"
+                data-name="${item.Name}" data-content="${item.Content}" data-price="${item.Price}"
+                data-stock="${item.Stock}" onclick="showProductDetails(this)">
+                了解詳情
+              </button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="productDetailModal_A" tabindex="-1" aria-labelledby="productDetailModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content bg-black">
+            <div class="modal-header border-0">
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="main-image-container mb-4">
+                      <img src="./img/22-05.png" alt="" class="img-fluid" id="mainImage_A"
+                        style="height:500px; object-fit:contain;">
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 text-white">
+                    <div class="thumbnail-container d-flex flex-wrap gap-2 mb-4">
+                      <div class="thumbnail-container d-flex flex-wrap gap-2 mb-4">
+                        <img src="./img/22-05.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_A')">
+                        <img src="./img/yb.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_A')">
+                        <img src="./img/lz.jpg" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_A')">
+                      </div>
+                    </div>
+                    <h4 class="fw-bold mb-2" id="Name">MINI WOODKER 全套組</h4>
+                    <h5 class="fw-bold mb-2" id="Price">NTD 21,999</h5>
+                    <p class="mb-2" id="Stock">庫存:36</p>
+                    <p class="mb-4 fw-light" id="Content">
+                      MINI WOODKER 全套組，包含主機台、模板、圓鋸、線鋸、修邊、鑽機頭，並附贈兩座手持電池。</p>
+                    <div class="d-flex align-items-center mb-4">
+                      <button class="btn btn-light quantity-btn" onclick="decreaseQuantity()">-</button>
+                      <input type="text" class="form-control mx-2 text-center  quantity_num" value="1"
+                        style="width:60px;" id="quantity">
+                      <button class="btn btn-light quantity-btn" onclick="increaseQuantity()">+</button>
+                    </div>
+                    <button class="btn btn-light w-100" onclick="addToCart_mw('1','全套組',21999)" id="Id">加入購物車</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="productDetailModal_B" tabindex="-1" aria-labelledby="productDetailModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content bg-black">
+            <div class="modal-header border-0">
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="main-image-container mb-4">
+                      <img src="./img/lh.png" alt="" class="img-fluid" id="mainImage_B"
+                        style="height:500px; object-fit:contain;">
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 text-white">
+                    <div class="thumbnail-container d-flex flex-wrap gap-2 mb-4">
+                      <div class="thumbnail-container d-flex flex-wrap gap-2 mb-4">
+                        <img src="./img/lh.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_B')">
+                        <img src="./img/sgj1.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_B')">
+                        <img src="./img/sgj2.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_B')">
+                        <img src="./img/sgj3.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_B')">
+                        <img src="./img/sgj4.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_B')">
+                        <img src="./img/sgj5.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_B')">
+                      </div>
+                    </div>
+                    <h4 class="fw-bold mb-2" id="Name">MINI WOODKER 手工具組</h4>
+                    <h5 class="fw-bold mb-2" id="Price">NTD 9,999</h5>
+                    <p class="mb-2" id="Stock">庫存:23</p>
+                    <p class="mb-4 fw-light" id="Content">
+                      MINI WOODKER 手工具組，包含圓鋸、線鋸、修邊、鑽機頭，並附贈兩座手持電池。</p>
+                    <div class="d-flex align-items-center mb-4">
+                      <button class="btn btn-light quantity-btn" onclick="decreaseQuantity()">-</button>
+                      <input type="text" class="form-control mx-2 text-center  quantity_num" value="1"
+                        style="width:60px;" id="quantity">
+                      <button class="btn btn-light quantity-btn" onclick="increaseQuantity()">+</button>
+                    </div>
+                    <button class="btn btn-light w-100" onclick="addToCart_mw('2','手工具組',9999)" id="Id">加入購物車</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="productDetailModal_C" tabindex="-1" aria-labelledby="productDetailModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content bg-black">
+            <div class="modal-header border-0">
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="main-image-container mb-4">
+                      <img src="./img/yb.png" alt="" class="img-fluid" id="mainImage_C"
+                        style="height:500px; object-fit:contain;">
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 text-white">
+                    <div class="thumbnail-container d-flex flex-wrap gap-2 mb-4">
+                      <div class="thumbnail-container d-flex flex-wrap gap-2 mb-4">
+                        <img src="./img/yb.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_C')">
+                        <img src="./img/zj.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_C')">
+
+                      </div>
+                    </div>
+                    <h4 class="fw-bold mb-2" id="Name">MINI WOODKER 機台</h4>
+                    <h5 class="fw-bold mb-2" id="Price">NTD 10,889</h5>
+                    <p class="mb-2" id="Stock">庫存:23</p>
+                    <p class="mb-4 fw-light" id="Content">
+                      MINI WOODKER 主機台，整體大小45x45x45cm，可切換三種模式，內建集塵功能。</p>
+                    <div class="d-flex align-items-center mb-4">
+                      <button class="btn btn-light quantity-btn" onclick="decreaseQuantity()">-</button>
+                      <input type="text" class="form-control mx-2 text-center  quantity_num" value="1"
+                        style="width:60px;" id="quantity">
+                      <button class="btn btn-light quantity-btn" onclick="increaseQuantity()">+</button>
+                    </div>
+                    <button class="btn btn-light w-100" onclick="addToCart_mw('3','機台',10889)" id="Id">加入購物車</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="productDetailModal_D" tabindex="-1" aria-labelledby="productDetailModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content bg-black">
+            <div class="modal-header border-0">
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="main-image-container mb-4">
+                      <img src="./img/z.png" alt="" class="img-fluid" id="mainImage_D"
+                        style="height:1000px; object-fit:contain;">
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 text-white">
+                    <div class="thumbnail-container d-flex flex-wrap gap-2 mb-4">
+                      <div class="thumbnail-container d-flex flex-wrap gap-2 mb-4">
+                        <img src="./img/z.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_D')">
+                        <img src="./img/mjd.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_D')">
+                        <img src="./img/mjy.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_D')">
+                        <img src="./img/mjy1.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_D')">
+                        <img src="./img/msc.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_D')">
+                        <img src="./img/msz.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_D')">
+                      </div>
+                    </div>
+                    <h4 class="fw-bold mb-2" id="Name">MINI WOODKER 模板</h4>
+                    <h5 class="fw-bold mb-2" id="Price">NTD 2,009</h5>
+                    <p class="mb-2" id="Stock">庫存:21</p>
+                    <p class="mb-4 fw-light" id="Content">
+                      MINI WOODKER 模板，可以製作三缺榫、鳩尾榫、搭接三種榫接，另附角度模板，可製作斜角。</p>
+                    <div class="d-flex align-items-center mb-4">
+                      <button class="btn btn-light quantity-btn" onclick="decreaseQuantity()">-</button>
+                      <input type="text" class="form-control mx-2 text-center  quantity_num" value="1"
+                        style="width:60px;" id="quantity">
+                      <button class="btn btn-light quantity-btn" onclick="increaseQuantity()">+</button>
+                    </div>
+                    <button class="btn btn-light w-100" onclick="addToCart_mw('4','模板',2009)" id="Id">加入購物車</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="productDetailModal_E" tabindex="-1" aria-labelledby="productDetailModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content bg-black">
+            <div class="modal-header border-0">
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="main-image-container mb-4">
+                      <img src="./img/sgj4.png" alt="" class="img-fluid" id="mainImage_E"
+                        style="height:500px; object-fit:contain;">
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 text-white">
+                    <div class="thumbnail-container d-flex flex-wrap gap-2 mb-4">
+                      <div class="thumbnail-container d-flex flex-wrap gap-2 mb-4">
+                        <img src="./img/sgj4.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_E')">
+                        <img src="./img/sgj1.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_E')">
+
+                      </div>
+                    </div>
+                    <h4 class="fw-bold mb-2" id="Name">MINI WOODKER 圓鋸機頭</h4>
+                    <h5 class="fw-bold mb-2" id="Price">NTD 1,229</h5>
+                    <p class="mb-2" id="Stock">庫存:53</p>
+                    <p class="mb-4 fw-light" id="Content">
+                      MINI WOODKER 圓鋸機頭，適合直線切割，快速又整齊，可裝置於主機台，也可加裝至電池。</p>
+                    <div class="d-flex align-items-center mb-4">
+                      <button class="btn btn-light quantity-btn" onclick="decreaseQuantity()">-</button>
+                      <input type="text" class="form-control mx-2 text-center  quantity_num" value="1"
+                        style="width:60px;" id="quantity">
+                      <button class="btn btn-light quantity-btn" onclick="increaseQuantity()">+</button>
+                    </div>
+                    <button class="btn btn-light w-100" onclick="addToCart_mw('5','圓鋸',1229)" id="Id">加入購物車</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="productDetailModal_F" tabindex="-1" aria-labelledby="productDetailModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content bg-black">
+            <div class="modal-header border-0">
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="main-image-container mb-4">
+                      <img src="./img/sgj2.png" alt="" class="img-fluid" id="mainImage_F"
+                        style="height:500px; object-fit:contain;">
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 text-white">
+                    <div class="thumbnail-container d-flex flex-wrap gap-2 mb-4">
+                      <div class="thumbnail-container d-flex flex-wrap gap-2 mb-4">
+                        <img src="./img/sgj2.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_F')">
+                        <img src="./img/sgj1.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_F')">
+
+                      </div>
+                    </div>
+                    <h4 class="fw-bold mb-2" id="Name">MINI WOODKER 線鋸機頭</h4>
+                    <h5 class="fw-bold mb-2" id="Price">NTD 1,729</h5>
+                    <p class="mb-2" id="Stock">庫存:33</p>
+                    <p class="mb-4 fw-light" id="Content">
+                      MINI WOODKER 線鋸機頭，能切曲線細節，操作靈活自由，可裝置於主機台，也可加裝至電池。</p>
+                    <div class="d-flex align-items-center mb-4">
+                      <button class="btn btn-light quantity-btn" onclick="decreaseQuantity()">-</button>
+                      <input type="text" class="form-control mx-2 text-center  quantity_num" value="1"
+                        style="width:60px;" id="quantity">
+                      <button class="btn btn-light quantity-btn" onclick="increaseQuantity()">+</button>
+                    </div>
+                    <button class="btn btn-light w-100" onclick="addToCart_mw('6','線鋸',1729)" id="Id">加入購物車</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="productDetailModal_G" tabindex="-1" aria-labelledby="productDetailModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content bg-black">
+            <div class="modal-header border-0">
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="main-image-container mb-4">
+                      <img src="./img/sgj3.png" alt="" class="img-fluid" id="mainImage_G"
+                        style="height:500px; object-fit:contain;">
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 text-white">
+                    <div class="thumbnail-container d-flex flex-wrap gap-2 mb-4">
+                      <div class="thumbnail-container d-flex flex-wrap gap-2 mb-4">
+                        <img src="./img/sgj3.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_F')">
+                        <img src="./img/sgj1.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_F')">
+
+                      </div>
+                    </div>
+                    <h4 class="fw-bold mb-2" id="Name">MINI WOODKER 修邊機頭</h4>
+                    <h5 class="fw-bold mb-2" id="Price">NTD 1,899</h5>
+                    <p class="mb-2" id="Stock">庫存:16</p>
+                    <p class="mb-4 fw-light" id="Content">
+                      MINI WOODKER 修邊機頭，修整邊緣細節，讓作品更細緻，可裝置於主機台，也可加裝至電池。</p>
+                    <div class="d-flex align-items-center mb-4">
+                      <button class="btn btn-light quantity-btn" onclick="decreaseQuantity()">-</button>
+                      <input type="text" class="form-control mx-2 text-center  quantity_num" value="1"
+                        style="width:60px;" id="quantity">
+                      <button class="btn btn-light quantity-btn" onclick="increaseQuantity()">+</button>
+                    </div>
+                    <button class="btn btn-light w-100" onclick="addToCart_mw('7','修邊',1899)" id="Id">加入購物車</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="productDetailModal_H" tabindex="-1" aria-labelledby="productDetailModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content bg-black">
+            <div class="modal-header border-0">
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="main-image-container mb-4">
+                      <img src="./img/sgj5.png" alt="" class="img-fluid" id="mainImage_H"
+                        style="height:500px; object-fit:contain;">
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 text-white">
+                    <div class="thumbnail-container d-flex flex-wrap gap-2 mb-4">
+                      <div class="thumbnail-container d-flex flex-wrap gap-2 mb-4">
+                        <img src="./img/sgj5.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_H')">
+                        <img src="./img/sgj1.png" alt="" class="img-fluid thumbnail"
+                          style="width:80px; height:80px; object-fit:cover; cursor:pointer;"
+                          onclick="changeMainImage(this, 'mainImage_H')">
+                      </div>
+                    </div>
+                    <h4 class="fw-bold mb-2" id="Name">MINI WOODKER 鑽孔機頭</h4>
+                    <h5 class="fw-bold mb-2" id="Price">NTD 1,019</h5>
+                    <p class="mb-2" id="Stock">庫存:20</p>
+                    <p class="mb-4 fw-light" id="Content">
+                      MINI WOODKER 鑽孔機頭，鑽出精準孔位，方便後續組裝，可裝置於主機台，也可加裝至電池。</p>
+                    <div class="d-flex align-items-center mb-4">
+                      <button class="btn btn-light quantity-btn" onclick="decreaseQuantity()">-</button>
+                      <input type="text" class="form-control mx-2 text-center  quantity_num" value="1"
+                        style="width:60px;" id="quantity">
+                      <button class="btn btn-light quantity-btn" onclick="increaseQuantity()">+</button>
+                    </div>
+                    <button class="btn btn-light w-100 product_modal" onclick="addToCart_mw('8','鑽孔',1019)"
+                      id="Id">加入購物車</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="productDetailModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content bg-black">
+            <div class="modal-header border-0">
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="main-image-container mb-4">
+                      <img src="" alt="" class="img-fluid main-product-image" id="Image"
+                        style="max-height:500px; object-fit:contain;">
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 text-white">
+                    <div class="thumbnail-container d-flex flex-wrap gap-2 mb-4">
+                    </div>
+                    <h3 class="fw-bold mb-2 d-none" id="Id">產品Id</h3>
+                    <h3 class="fw-bold mb-2 d-none" id="Product_Id">產品Product_Id</h3>
+                    <h3 class="fw-bold mb-2" id="Name">產品名稱</h3>
+                    <h4 class="fw-bold mb-2" id="Price">NTD 0</h4>
+                    <p class="mb-2" id="Stock">庫存:0</p>
+                    <p class="mb-4" id="Content">產品描述</p>
+                    <div class="d-flex align-items-center mb-4">
+                      <button class="btn btn-light quantity-btn" onclick="decreaseQuantity()">-</button>
+                      <input type="text" class="form-control mx-2 text-center quantity_num" value="1"
+                        style="width:60px;" id="quantity">
+                      <button class="btn btn-light quantity-btn" onclick="increaseQuantity()">+</button>
+                    </div>
+                    <button class="btn btn-light w-100" id="addToCartBtn" onclick="addToCart()">加入購物車</button>
+                    <p class="text-danger mt-2 d-none" id="stockWarning">商品已售罄</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script src="js/jquery-3.7.1.min.js"></script>
+      <script src="js/bootstrap.bundle.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+
+      <script>
+        var buy_num = 1;
+
+        var image;
+        var name;
+        var content;
+        var price;
+        var stock;
+        var productId;
+        var Id;
+
+        $.ajax({
+          type: "POST",
+          url: "product_API.php?action=getProducts",
+          dataType: "json",
+          success: renderProducts,
+
+          error: function () {
+            console.log("資料錯誤! - product_API.php?action=getProducts");
+          }
+        });
+
+        var json_data = {};
+
+        json_data["Category"] = $("#Category").val();
+        json_data["Name"] = $("#productName").val();
+        json_data["Image"] = $("#Image").val();
+        json_data["Content"] = $("#productContent").val();
+        json_data["Price"] = $("#productPrice").val();
+        json_data["Stock"] = $("#productStock").val();
+
+        function renderProducts(data) {
+          $("#wood").empty();
+          $("#furniture").empty();
+          $("#other").empty();
+
+          data.data.forEach(
+            function (item) {
+
+              var cardHTML = `
+                      <div class="col-12 m-5 position-relative">
+                      <img src="${item.Image}" alt="" class="img-fluid w-100" style="object-fit: cover;">
+                      <button class="btn btn-light"
+                        style="position: absolute;bottom: 10px;right: 10px;"
+                        data-bs-toggle="modal"
+                        data-bs-target="#productDetailModal"
+                        data-product-id="${item.Id}"
+                        data-id="${item.Id}"
+                        data-image="${item.Image}"
+                        data-name="${item.Name}"
+                        data-content="${item.Content}"
+                        data-price="${item.Price}"
+                        data-stock="${item.Stock}"
+                        onclick="showProductDetails(this)">
+                        了解詳情
+                      </button>
+                        </div>`;
+
+              if (item.Category === "木材") {
+                $("#wood").append(cardHTML);
+              } else if (item.Category === "家具") {
+                $("#furniture").append(cardHTML);
+              } else if (item.Category === "其他") {
+                $("#other").append(cardHTML);
+              }
+            });
+
+        }
+
+        function showProductDetails(el) {
+
+          buy_num = 1;
+          $(".quantity_num").val("1");
+
+          image = $(el).data("image");
+          name = $(el).data("name");
+          content = $(el).data("content");
+          price = $(el).data("price");
+          stock = $(el).data("stock");
+          Id = $(el).data("id");
+
+          $("#productDetailModal #Image").attr("src", image);
+          $("#productDetailModal #Name").text(name);
+          $("#productDetailModal #Content").text(content);
+          $("#productDetailModal #Price").text("NTD " + price);
+          $("#productDetailModal #Stock").text("庫存:" + stock);
+
+
+          const $addToCartBtn = $("#productDetailModal #addToCartBtn");
+          const $stockWarning = $("#productDetailModal #stockWarning");
+          const $quantityBtns = $("#productDetailModal .quantity-btn");
+          const $quantityInput = $("#productDetailModal #quantity");
+
+          if (stock <= 0) {
+            $addToCartBtn.prop("disabled", true).text("已售罄");
+            $stockWarning.removeClass("d-none");
+            $quantityBtns.prop("disabled", true);
+            $quantityInput.prop("disabled", true);
+          } else {
+            $addToCartBtn.prop("disabled", false).text("加入購物車");
+            $stockWarning.addClass("d-none");
+            $quantityBtns.prop("disabled", false);
+            $quantityInput.prop("disabled", false);
+            if (parseInt($quantityInput.val()) > stock) {
+              $quantityInput.val(stock);
+              buy_num = stock;
+            }
+          }
+        }
+
+        function decreaseQuantity() {
+          var qty = parseInt($(".quantity_num").val(), 10);
+          if (qty > 1) {
+            qty--;
+            buy_num = qty;
+            $(".quantity_num").val(qty);
+          }
+        }
+
+        function increaseQuantity() {
+          var qty = parseInt($(".quantity_num").val(), 10);
+          var maxStock = parseInt($("#Stock").text().replace("庫存:", ""));
+          if (qty < maxStock) {
+            qty++;
+            buy_num = qty;
+            $(".quantity_num").val(qty);
+          } else {
+            Swal.fire({
+              title: "庫存不足",
+              text: "已達到最大庫存數量",
+              icon: "warning",
+              confirmButtonColor: "#000000",
+              confirmButtonText: "確認"
+            });
+          }
+        }
+
+        function addToCart_mw(pid, pname, price) {
+          const uid = getCookie("UID");
+
+          if (!uid) {
+            Swal.fire({
+              title: "請先登入",
+              icon: "warning",
+              confirmButtonColor: "#000000",
+              confirmButtonText: "確認"
+            });
+            return;
+          }
+
+          const quantityInput = $(event.target).closest('.modal-content').find('.quantity_num');
+          const quantity = parseInt(quantityInput.val()) || 1;
+
+          $.ajax({
+            type: "POST",
+            url: "member_control_API_v1.php?action=checkUID",
+            data: JSON.stringify({ UID: uid }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+              if (response.state && response.login_data) {
+                const memberId = response.login_data.ID;
+
+
+                const json_data = {
+                  User_id: memberId,
+                  Product_id: parseInt(pid),
+                  Quantity: quantity,
+                  Price: parseInt(price * quantity)
+                };
+
+
+                $.ajax({
+                  type: "POST",
+                  url: "car_API.php?action=addToCart",
+                  data: JSON.stringify(json_data),
+                  contentType: "application/json",
+                  dataType: "json",
+                  success: function (response) {
+                    if (response.state === true || response.message === "新增成功") {
+                      Swal.fire({
+                        title: "已加入購物車",
+                        icon: "success",
+                        confirmButtonColor: "#000000",
+                        confirmButtonText: "確認"
+                      }).then(() => {
+                        $('.modal').modal('hide');
+                        location.href = "miniwoodker_shop.html";
+                      });
+                    } else {
+                      Swal.fire({
+                        title: "加入購物車失敗",
+                        text: response.message || "請稍後再試",
+                        icon: "error",
+                        confirmButtonColor: "#000000",
+                        confirmButtonText: "確認"
+                      });
+                    }
+                  },
+                  error: function (xhr, status, error) {
+                    console.error("加入購物車失敗:", {
+                      status: status,
+                      error: error,
+                      response: xhr.responseText
+                    });
+                    Swal.fire({
+                      title: "系統錯誤",
+                      text: "無法加入購物車，請稍後再試",
+                      icon: "error",
+                      confirmButtonColor: "#000000",
+                      confirmButtonText: "確認"
+                    });
+                  }
+                });
+              } else {
+                Swal.fire({
+                  title: "驗證失敗",
+                  text: "請重新登入",
+                  icon: "error",
+                  confirmButtonColor: "#000000",
+                  confirmButtonText: "確認"
+                });
+              }
+            },
+            error: function (xhr, status, error) {
+              console.error("會員驗證失敗:", {
+                status: status,
+                error: error,
+                response: xhr.responseText
+              });
+              Swal.fire({
+                title: "系統錯誤",
+                text: "無法驗證會員信息，請重新登入",
+                icon: "error",
+                confirmButtonColor: "#000000",
+                confirmButtonText: "確認"
+              });
+            }
+          });
+        }
+
+
+        function addToCart() {
+          const uid = getCookie("UID");
+
+          if (!uid) {
+            Swal.fire({
+              title: "請先登入",
+              icon: "warning",
+              confirmButtonColor: "#000000",
+              confirmButtonText: "確認"
+            });
+            return;
+          }
+
+          const quantity = parseInt($("#quantity").val()) || 1;
+          const productPrice = parseInt(price);
+
+          if (!productPrice || !Id) {
+            Swal.fire({
+              title: "商品資料錯誤",
+              text: "請重新選擇商品",
+              icon: "error",
+              confirmButtonColor: "#000000",
+              confirmButtonText: "確認"
+            });
+            return;
+          }
+
+          $.ajax({
+            type: "POST",
+            url: "member_control_API_v1.php?action=checkUID",
+            data: JSON.stringify({ UID: uid }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+              if (response.state && response.login_data) {
+                const memberId = response.login_data.ID;
+
+                const json_data = {
+                  User_id: memberId,
+                  Product_id: parseInt(Id),
+                  Quantity: quantity,
+                  Price: productPrice * quantity
+                };
+
+
+                $.ajax({
+                  type: "POST",
+                  url: "car_API.php?action=addToCart",
+                  data: JSON.stringify(json_data),
+                  contentType: "application/json",
+                  dataType: "json",
+                  success: function (response) {
+                    if (response.state === true || response.message === "新增成功") {
+                      Swal.fire({
+                        title: "已加入購物車",
+                        icon: "success",
+                        confirmButtonColor: "#000000",
+                        confirmButtonText: "確認"
+                      }).then(() => {
+                        $('.modal').modal('hide');
+                        location.href = "miniwoodker_shop.html";
+                      });
+                    } else {
+                      Swal.fire({
+                        title: "加入購物車失敗",
+                        text: response.message || "請稍後再試",
+                        icon: "error",
+                        confirmButtonColor: "#000000",
+                        confirmButtonText: "確認"
+                      });
+                    }
+                  },
+                  error: function (xhr, status, error) {
+                    console.error("加入購物車失敗:", {
+                      status: status,
+                      error: error,
+                      response: xhr.responseText
+                    });
+                    Swal.fire({
+                      title: "系統錯誤",
+                      text: "無法加入購物車，請稍後再試",
+                      icon: "error",
+                      confirmButtonColor: "#000000",
+                      confirmButtonText: "確認"
+                    });
+                  }
+                });
+              } else {
+                Swal.fire({
+                  title: "驗證失敗",
+                  text: "請重新登入",
+                  icon: "error",
+                  confirmButtonColor: "#000000",
+                  confirmButtonText: "確認"
+                });
+              }
+            },
+            error: function (xhr, status, error) {
+              console.error("會員驗證失敗:", {
+                status: status,
+                error: error,
+                response: xhr.responseText
+              });
+              Swal.fire({
+                title: "系統錯誤",
+                text: "無法驗證會員信息，請重新登入",
+                icon: "error",
+                confirmButtonColor: "#000000",
+                confirmButtonText: "確認"
+              });
+            }
+          });
+        }
+
+        $(function () {
+          checkLogin();
+        });
+
+        function checkLogin() {
+          $.ajax({
+            type: "POST",
+            url: "member_control_API_v1.php?action=checkUID",
+            data: JSON.stringify({ "UID": getCookie("UID") }),
+            dataType: "json",
+            success: function (data) {
+              if (data.state) {
+
+                $("#show_user").removeClass("d-none");
+                $("#cart_btn").removeClass("d-none");
+                $("#logout_btn").removeClass("d-none");
+                console.log("cookie值:", document.cookie);
+              } else {
+
+                $("#show_user").addClass("d-none");
+                $("#show_login_name").addClass("d-none");
+                $("#cart_btn").addClass("d-none");
+                $("#logout_btn").addClass("d-none");
+              }
+            },
+            error: function (xhr, status, error) {
+              console.log("檢查登入狀態失敗");
+            }
+          });
+        }
+
+        function logout() {
+          setCookie("UID", "", -1);
+
+          $("#cart_btn").addClass("d-none");
+          $("#logout_btn").addClass("d-none");
+          $("#show_user").addClass("d-none");
+
+          Swal.fire({
+            title: "已登出",
+            icon: "success",
+            confirmButtonColor: "#000000",
+            confirmButtonText: "確認"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "miniwoodker_home.html";
+            }
+          });
+        }
+
+
+        function setCookie(cname, cvalue, exdays) {
+          const d = new Date();
+          d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+          let expires = "expires=" + d.toUTCString();
+          document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(name) {
+          const value = `; ${document.cookie}`;
+          const parts = value.split(`; ${name}=`);
+          if (parts.length === 2) {
+            const cookieValue = parts.pop().split(';').shift();
+            console.log(`Cookie ${name} 值:`, cookieValue);
+            return cookieValue;
+          }
+          return null;
+        }
+
+        $(document).ready(function () {
+
+          $(document).on('click', '.thumbnail-container img, .thumbnail-container div', function () {
+
+            let imgSrc;
+            if ($(this).is('div')) {
+
+              imgSrc = $(this).css('background-image').replace(/url\(['"]?(.*?)['"]?\)/i, '$1');
+            } else {
+              imgSrc = $(this).attr('src');
+            }
+
+            $(this).closest('.row').find('.main-product-image').attr('src', imgSrc);
+
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active');
+          });
+        });
+
+        function changeMainImage(el, targetId) {
+          document.getElementById(targetId).src = el.src;
+        }
+
+      </script>
+</body>
+</html>

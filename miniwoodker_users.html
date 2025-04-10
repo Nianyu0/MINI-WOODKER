@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>會員中心</title>
+  <link rel="stylesheet" href="./css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/all.min.css" />
+  <link rel="stylesheet" href="css/mw.css">
+  <style>
+    body {
+      font-family: myFirstFont;
+      background-color: #f5f5f5;
+    }
+
+    .card {
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+      background-color: #fff;
+    }
+
+    .card-header {
+      background-color: #343a40;
+      color: white;
+      border-radius: 15px 15px 0 0 !important;
+      padding: 1.2rem;
+    }
+
+    .card-body {
+      padding: 2rem;
+    }
+
+    .form-control {
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      padding: 0.8rem;
+    }
+
+    .form-control:disabled {
+      background-color: #f8f9fa;
+    }
+
+    .btn {
+      border-radius: 8px;
+      padding: 0.6rem 1.5rem;
+      font-weight: 500;
+    }
+
+    .table-card {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .table {
+      margin-bottom: 0;
+    }
+
+    .table thead th {
+      border-top: none;
+      background-color: #343a40;
+      color: white;
+      font-weight: 500;
+    }
+
+    .table-hover tbody tr:hover {
+      background-color: #f8f9fa;
+    }
+
+    @media (max-width: 768px) {
+      .card-body {
+        padding: 1.5rem;
+      }
+      
+      .btn {
+        width: 100%;
+        margin: 0.5rem 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand">
+        <img src="img/logo-01.png" alt="Bootstrap" width="150" height="28" />
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="miniwoodker_home.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-nowrap" href="miniwoodker_tenonjoints.html">Tenon joints</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="miniwoodker_teaching.html">Teaching</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="miniwoodker_shop.html">Shop</a>
+          </li>
+          <li class="nav-item d-none" id="show_user">
+            <a class="nav-link active" aria-current="page" href="miniwoodker_users.html">Account</a>
+          </li>
+        </ul>
+
+        <div class="d-flex justify-content-lg-end ms-auto align-items-center">
+          <a href="miniwoodker_car.html">
+            <img src="img/shopcar.png" alt="" id="cart_btn" height="25" class="d-none m-2" style="margin-top: 8px;" />
+          </a>
+          <button class="btn btn-dark m-2 d-none" onclick="logout()" id="logout_btn">
+            登出
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="modal fade" id="member_update_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            會員資料更新
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label" for="update_username"> 帳號 </label>
+            <input type="text" class="form-control" id="update_username" name="update_username" disabled />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="update_email"> E-mail </label>
+            <input type="email" class="form-control" id="update_email" name="update_email" />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="update_phone"> 電話 </label>
+            <input type="phone" class="form-control" id="update_phone" name="update_phone" />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="update_address"> 地址 </label>
+            <input type="address" class="form-control" id="update_address" name="update_address" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            取消
+          </button>
+          <button type="button" class="btn btn-dark" id="update_confirm_btn">
+            確定
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-5">
+    <div class="card mb-4">
+      <div class="card-header">
+        <h4 class="text-center mb-0">會員資料</h4>
+      </div>
+      <div class="card-body" id="mydata">
+
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <label class="form-label">帳號</label>
+            <input type="text" id="username" class="form-control" disabled data-th="帳號" />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="updateModal_email" class="form-label">Email</label>
+            <input type="email" id="updateModal_email" name="updateModal_email" class="form-control is-valid"
+              data-th="Email" required />
+            <div class="valid-feedback">符合規則</div>
+            <div class="invalid-feedback">不符合規則</div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="updateModal_phone" class="form-label">電話</label>
+            <input type="phone" id="updateModal_phone" name="updateModal_phone" class="form-control is-valid"
+              data-th="Phone" required />
+            <div class="valid-feedback">符合規則</div>
+            <div class="invalid-feedback">不符合規則</div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="updateModal_address" class="form-label">地址</label>
+            <input type="address" id="updateModal_address" name="updateModal_address" class="form-control is-valid"
+              data-th="Address" required />
+            <div class="valid-feedback">符合規則</div>
+            <div class="invalid-feedback">不符合規則</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 d-flex justify-content-end">
+            <button type="button" class="btn btn-dark" id="updateModal_updatebtn">
+              更新資料
+            </button>
+            <button type="button" class="btn btn-light ms-2" id="deleteModal_updatebtn">
+              刪除帳號
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h4 class="text-center mb-0">訂單記錄</h4>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead>
+              <tr>
+                <th>訂單編號</th>
+                <th>訂購日期</th>
+                <th>商品名稱</th>
+                <th>數量</th>
+                <th>金額</th>
+                <th>狀態</th>
+              </tr>
+            </thead>
+
+            <tbody id="order_list">
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/jquery-3.7.1.min.js"></script>
+  <script src="js/CityCountyData.json"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    var boolean_updateModal_password = true;
+    var boolean_updateModal_email = true;
+    var boolean_updateModal_phone = true;
+    var boolean_updateModal_address = true;
+
+    var u_id; 
+
+    $(function () {
+      if (getCookie("UID")) {
+        var JSONdata = {};
+        JSONdata["UID"] = getCookie("UID");
+        console.log("檢查登入狀態:", JSON.stringify(JSONdata));
+
+        $.ajax({
+          type: "POST",
+          url: "member_control_API_v1.php?action=checkUID",
+          data: JSON.stringify(JSONdata),
+          dataType: "json",
+          success: function(data) {
+            showdata_checkUID(data);
+            if(data.state) {
+              getOrderData();
+            }
+          },
+          error: function () {
+            Swal.fire({
+              title: "API介接錯誤!",
+              text: "member_control_API_v1.php?action=getMemberData",
+              icon: "error",
+              confirmButtonColor: "#000000",
+              confirmButtonText: "確認",
+            });
+          },
+        });
+      }
+    });
+
+    function showdata_checkUID(data) {
+      console.log(data);
+      if (data.state) {
+        $("#loginModal").modal("hide");
+
+        $("#username").val(data.login_data.Username);
+        $("#updateModal_password").val("");
+        $("#updateModal_email").val(data.login_data.Email);
+        $("#updateModal_phone").val(data.login_data.Phone);
+        $("#updateModal_address").val(data.login_data.Address);
+
+        $("#show_login_name").removeClass("d-none");
+        $("#welcome_user").text(data.login_data.Username);
+
+        $("#register_btn").addClass("d-none");
+        $("#login_btn").addClass("d-none");
+
+        $("#logout_btn").removeClass("d-none");
+
+        $("#show_user").removeClass("d-none");
+
+        if (getCookie("UID")) {
+          var json_data = {};
+
+          json_data["UID"] = getCookie("UID");
+
+          $.ajax({
+            type: "POST",
+            url: "member_control_API_v1.php?action=getownerdata",
+
+            data: JSON.stringify(json_data),
+
+            dataType: "json",
+            success: showdata_getownerdata,
+            async: false,
+            error: function () {
+              Swal.fire({
+                title: "API介接錯誤!",
+                text: "member_control_API_vl.php?action=getownerdata",
+                icon: "error",
+              });
+            },
+          });
+        }
+
+        $("#mydata #updateModal_updatebtn").click(function () {
+          $("#update_username").val($(this).data("username"));
+          $("#update_email").val($(this).data("email"));
+          $("#update_phone").val($(this).data("phone"));
+          $("#update_address").val($(this).data("address"));
+        });
+
+        $("#mydata #deleteModal_updatebtn").click(function () {
+
+          var json_data = {};
+
+          json_data["Username"] = $(this).data("username");
+
+          $.ajax({
+            type: "POST",
+            url: "member_control_API_v1.php?action=delete_member",
+            data: JSON.stringify(json_data),
+
+            dataType: "json",
+
+            success: delete_memberDB_showdata,
+            error: function () {
+              alert("delete_memberDB之API有問題");
+            },
+          });
+        });
+
+        $("#update_confirm_btn").click(function () {
+          if (true) {
+            console.log($("#update_username").val());
+            console.log($("#update_email").val());
+            console.log($("#update_phone").val());
+            console.log($("#update_address").val());
+
+            var json_data = {};
+
+            json_data["Username"] = $("#update_username").val();
+            json_data["Email"] = $("#update_email").val();
+            json_data["Phone"] = $("#update_phone").val();
+            json_data["Address"] = $("#update_address").val();
+            console.log(JSON.stringify(json_data));
+
+            $.ajax({
+              type: "POST",
+              url: "member_control_API_v1.php?action=update_member",
+              data: JSON.stringify(json_data),
+
+              dataType: "json",
+
+              success: update_memberDB_showdata,
+              error: function () {
+                alert("update_memberDB之API有問題");
+              },
+            });
+          } else {
+            alert("欄位格式不符規定");
+          }
+        });
+      }
+
+      $("#updateModal_password").bind("input propertychange", function () {
+        if ($(this).val().length > 2 && $(this).val().length < 16) {
+          $(this).removeClass("is-invalid");
+          $(this).addClass("is-valid");
+          boolean_updateModal_password = true;
+        } else {
+          $(this).removeClass("is-valid");
+          $(this).addClass("is-invalid");
+          boolean_updateModal_password = false;
+        }
+      });
+
+      $("#updateModal_phone").bind("input propertychange", function () {
+        if ($(this).val().length == 10) {
+          $(this).removeClass("is-invalid");
+          $(this).addClass("is-valid");
+          boolean_updateModal_phone = true;
+        } else {
+          $(this).removeClass("is-valid");
+          $(this).addClass("is-invalid");
+          boolean_updateModal_phone = false;
+        }
+      });
+    }
+
+    function showdata_getownerdata(data) {
+      console.log(data);
+
+      $("#mydata").empty();
+      data.login_data.forEach(function (item) {
+        var strHTML = `<div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">帳號</label>
+                <input  type="text"    class="form-control"  disabled   data-th="帳號" value="${item.Username}">
+              </div>  
+            </div>            
+                
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="updateModal_email" class="form-label">Email</label>
+                <input type="email"   name="updateModal_email"  disabled  class="form-control" data-th="Email" required value="${item.Email}">
+                <div class="valid-feedback">符合規則</div>
+                <div class="invalid-feedback">不符合規則</div>
+              </div>
+            </div> 
+
+            <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="updateModal_phone" class="form-label">電話</label>
+              <input type="phone"   name="updateModal_phone"  disabled  class="form-control" data-th="Phone" required value="${item.Phone}">
+              <div class="valid-feedback">符合規則</div>
+              <div class="invalid-feedback">不符合規則</div>
+            </div>
+          </div> 
+
+          <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="updateModal_address" class="form-label">地址</label>
+            <input type="address" id="updateModal_address" name="updateModal_address" disabled class="form-control "data-th="Address" required value="${item.Address}">
+            <div class="valid-feedback">符合規則</div>
+            <div class="invalid-feedback">不符合規則</div>
+          </div>
+        </div>
+              
+
+            <div class="row">
+              <div class="col-12 d-flex justify-content-end">
+                <button   class="btn btn-dark"  data-username=${item.Username}  data-email=${item.Email}  data-ID=${item.ID}  
+                data-Password=${item.Password}  data-Phone=${item.Phone}  data-Address=${item.Address}  data-UID=${item.UID}  
+                data-Level=${item.Level}  data-Creat_at=${item.Creat_at} id="updateModal_updatebtn" data-bs-toggle="modal" data-bs-target="#member_update_Modal"> 更新資料
+                </button>
+
+                <button   class="btn btn-secondary ms-2"  data-username=${item.Username}  data-email=${item.Email}  data-ID=${item.ID}  
+                data-Password=${item.Password}  data-Phone=${item.Phone}  data-Address=${item.Address}  data-UID=${item.UID}  
+                data-Level=${item.Level}  data-Creat_at=${item.Creat_at} id="deleteModal_updatebtn"> 刪除帳號
+                </button> 
+                
+              </div>
+            </div>`;
+
+        $("#mydata").append(strHTML);
+      });
+    }
+
+    function update_memberDB_showdata(data) {
+      console.log(data);
+
+      if (data.state) {
+        Swal.fire({
+          title: data.message,
+          confirmButtonText: "確認",
+          confirmButtonColor: "#000000",
+          allowOutsideClick: false,
+        }).then((result) => {
+
+          location.href = "miniwoodker_users.html";
+        });
+      } else {
+        alert(data.message);
+      }
+    }
+
+    $(document).ready(function () {
+      $(document).on('click', '#deleteModal_updatebtn', function () {
+
+        const username = $(this).data("username");
+
+        Swal.fire({
+          title: "確定要刪除嗎？",
+          text: "此操作無法復原！",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#000000",
+          cancelButtonColor: "#6c757d",
+          confirmButtonText: "確定",
+          cancelButtonText: "取消"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              type: "POST",
+              url: "member_control_API_v1.php?action=delete_member",
+              data: JSON.stringify({
+                "Username": username,
+                "UID": getCookie("UID")
+              }),
+              dataType: "json",
+              success: function (response) {
+                if (response.state) {
+                  Swal.fire({
+                    title: "刪除成功",
+                    icon: "success",
+                    confirmButtonColor: "#000000"
+                  }).then(() => {
+
+                    setCookie("UID", "", -1);
+                    window.location.href = "miniwoodker_home.html";
+                  });
+                } else {
+                  Swal.fire({
+                    title: "刪除失敗",
+                    text: response.message || "未知錯誤",
+                    icon: "error",
+                    confirmButtonColor: "#000000"
+                  });
+                }
+              },
+              error: function (xhr, status, error) {
+                console.log("Error:", error);
+                Swal.fire({
+                  title: "API介接錯誤!",
+                  text: "請稍後再試",
+                  icon: "error",
+                  confirmButtonColor: "#000000"
+                });
+              }
+            });
+          }
+        });
+      });
+    });
+
+    $(function () {
+      checkLogin();
+    });
+
+    function checkLogin() {
+      $.ajax({
+        type: "POST",
+        url: "member_control_API_v1.php?action=checkUID",
+        data: JSON.stringify({ "UID": getCookie("UID") }),
+        dataType: "json",
+        success: function (data) {
+          if (data.state) {
+            $("#show_user").removeClass("d-none");
+            $("#cart_btn").removeClass("d-none");
+            $("#logout_btn").removeClass("d-none");
+          } else {
+            $("#show_user").addClass("d-none");
+            $("#show_login_name").addClass("d-none");
+            $("#cart_btn").addClass("d-none");
+            $("#logout_btn").addClass("d-none");
+          }
+        },
+        error: function (xhr, status, error) {
+          console.log("檢查登入狀態失敗");
+        }
+      });
+    }
+
+    function logout() {
+      setCookie("UID", "", -1);
+
+      $("#cart_btn").addClass("d-none");
+      $("#logout_btn").addClass("d-none");
+      $("#show_user").addClass("d-none");
+
+      Swal.fire({
+        title: "已登出",
+        icon: "success",
+        confirmButtonColor: "#000000",
+        confirmButtonText: "確認"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "miniwoodker_home.html";
+        }
+      });
+    }
+
+    function setCookie(cname, cvalue, exdays) {
+      const d = new Date();
+      d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+      let expires = "expires=" + d.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    function getOrderData() {
+      if (getCookie("UID")) {
+        console.log("正在獲取會員資料:", getCookie("UID"));
+        $.ajax({
+          type: "POST",
+          url: "car_API.php?action=getOrders",
+          data: JSON.stringify({ 
+            "User_id": getCookie("UID") 
+          }),
+          dataType: "json",
+          success: function (response) {
+            console.log("獲取狀態", response);
+            if (response.state) {
+              displayOrders(response.data);
+            } else {
+             
+              $("#order_list").html(`
+                <tr>
+                  <td colspan="6" class="text-center">暫無訂單紀錄</td>
+                </tr>
+              `);
+              Swal.fire({
+                title: "獲取訂單失敗",
+                text: response.message || "錯誤!",
+                icon: "warning",
+                confirmButtonColor: "#000000"
+              });
+            }
+          },
+          error: function (xhr, status, error) {
+
+            $("#order_list").html(`
+              <tr>
+                <td colspan="6" class="text-center">獲取訂單失敗</td>
+              </tr>
+            `);
+            Swal.fire({
+              title: "獲取訂單失敗",
+              text: "請稍後再試",
+              icon: "error",
+              confirmButtonColor: "#000000"
+            });
+          }
+        });
+      } else {
+        $("#order_list").html(`
+          <tr>
+            <td colspan="6" class="text-center">請重新登入</td>
+          </tr>
+        `);
+      }
+    }
+
+    function displayOrders(orders) {
+      const orderList = $("#order_list");
+      orderList.empty();
+      
+      if (orders && orders.length > 0) {
+        orders.forEach(order => {
+          let statusClass = '';
+          switch(order.Status) {
+            case '處理中':
+              statusClass = 'text-warning';
+              break;
+            case '已完成':
+              statusClass = 'text-success';
+              break;
+            case '已取消':
+              statusClass = 'text-danger';
+              break;
+            default:
+              statusClass = 'text-secondary';
+          }
+
+          const row = `
+            <tr>
+              <td>${order.Order_id}</td>
+              <td>${formatDate(order.Order_date)}</td>
+              <td>${order.Products}</td>
+              <td>${order.Total_Quantity}</td>
+              <td>$${formatPrice(order.Total_Amount)}</td>
+              <td class="${statusClass}">${order.Status}</td>
+            </tr>
+          `;
+          orderList.append(row);
+        });
+      } else {
+        orderList.html(`
+          <tr>
+            <td colspan="6" class="text-center">暫無訂單記錄</td>
+          </tr>
+        `);
+      }
+    }
+
+    function formatDate(dateStr) {
+      const date = new Date(dateStr);
+      return date.toLocaleDateString('zh-TW', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+
+    function formatPrice(price) {
+      return parseFloat(price).toLocaleString('zh-TW', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      });
+    }
+
+    $(function () {
+      checkLogin();
+      getOrderData();
+    });
+
+  </script>
+</body>
+
+</html>

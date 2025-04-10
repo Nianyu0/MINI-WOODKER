@@ -1,0 +1,2194 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>管理者介面</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/mw.css">
+    <style>
+      body {
+        font-family: myFirstFont;
+      }
+      .nav-tabs .nav-link.active {
+        background-color: #000;
+        color: #fff;
+      }
+      .sidebar {
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding-top: 3.5rem;
+        background-color: #f8f9fa;
+        border-right: 1px solid #dee2e6;
+      }
+      .main-content {
+        margin-left: 250px;
+        padding: 20px;
+      }
+      .nav-link {
+        color: #000;
+        padding: 0.5rem 1rem;
+      }
+      .nav-link:hover {
+        background-color: #e9ecef;
+      }
+      .nav-link.active {
+        background-color: #000;
+        color: #fff;
+      }
+      .pagination .page-item.active .page-link {
+        background-color: #000;
+        border-color: #000;
+        color: #fff;
+      }
+      
+      .pagination .page-link {
+        color: #000;
+      }
+      
+      .pagination .page-item.disabled .page-link {
+        color: #6c757d;
+      }
+
+      .form-select:focus {
+        border-color: #000;
+        box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.25);
+      }
+      
+      .form-control:focus {
+        border-color: #000;
+        box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.25);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar" style="width: 250px;">
+      <div class="d-flex flex-column">
+        <div class="text-center mb-4">
+          <img src="img/logo-01.png" alt="Logo" width="150" height="28" />
+        </div>
+        <div class="nav flex-column nav-pills">
+          <a class="nav-link mb-2" href="#" onclick="showContent('product')">產品管理</a>
+          <a class="nav-link mb-2" href="#" onclick="showContent('user')">會員管理</a>
+          <a class="nav-link mb-2" href="#" onclick="showContent('order')">訂單管理</a>
+          <a class="nav-link mb-2" href="#" onclick="showContent('chart')">統計分析</a>
+        </div>
+        <div class="mt-auto p-3">
+          <div class="d-flex flex-column">
+            <div class="text-center mb-2" id="show_login_name">
+              <span class="text-dark" id="welcome_user">XXX</span>
+              <span class="text-dark">[管理者]</span>
+            </div>
+            <button class="btn btn-dark" onclick="logout()">登出</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="main-content">
+      <div id="product-content" style="display: none;">
+        <div class="d-flex justify-content-end mb-3">
+          <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addProductModal">
+            新增產品
+          </button>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-rwd table-light table-hover shadow-lg">
+            <thead>
+              <tr class="text-center">
+                <th>產品類別</th>
+                <th>產品名稱</th>
+                <th>產品圖片</th>
+                <th>產品說明</th>
+                <th>產品價格</th>
+                <th>產品庫存</th>
+                <th>建檔時間</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="mydata">
+              <tr>
+                <td data-th="產品類別"></td>
+                <td data-th="產品名稱"></td>
+                <td data-th="產品圖片"></td>
+                <td data-th="產品說明"></td>
+                <td data-th="產品價格"></td>
+                <td data-th="產品庫存"></td>
+                <td data-th="建檔時間"></td>
+                <td data-th="按鈕">
+                  <div class="d-flex justify-content-between">
+                    <button
+                      class="btn btn-secondary btn-sm me-2"
+                      data-bs-toggle="modal"
+                      data-bs-target="#updateModal"
+                      data-id=""
+                      data-category=""
+                      data-name=""
+                      data-image=""
+                      data-content=""
+                      data-price=""
+                      data-stock=""
+                      data-created_at=""
+                      id="update_btn"
+                    >
+                      更新
+                    </button>
+                    <button class="btn btn-dark btn-sm" id="deleteProduct">
+                      刪除
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mt-3">
+          <div class="d-flex align-items-center">
+            <span class="ms-3">共 <span id="totalProducts">0</span> 筆資料</span>
+          </div>
+          <nav>
+            <ul class="pagination mb-0" id="productPagination">
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+    <div
+    class="modal fade"
+    id="addProductModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header text-bg-dark">
+          <h1 class="modal-title fs-5 fw-900" id="exampleModalLabel">
+            新增產品
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <label class="form-label mb-3" for="productCategory">產品類別</label>
+            <select name="productCategory" id="productCategory" class="form-select form-select-lg">
+            <option value="" class="text-center" selected disabled>---選擇產品類別---</option>
+            <option value="木材">木材</option>
+            <option value="家具">家具</option>
+            <option value="其他">其他</option>
+            </select>
+          <div class="mb-3">
+            <label for="productName" class="form-label">產品名稱</label>
+            <input
+              type="text"
+              class="form-control"
+              id="productName"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="productPrice" class="form-label">價格</label>
+            <input
+              type="number"
+              class="form-control"
+              id="productPrice"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="productStock" class="form-label">庫存</label>
+            <input
+              type="number"
+              class="form-control"
+              id="productStock"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="productContent" class="form-label"
+              >內容</label
+            >
+            <textarea
+              class="form-control"
+              id="productContent"
+              rows="3"
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="productImage" class="form-label">產品圖片</label>
+            <input
+              type="file"
+              class="form-control"
+              id="productImage"
+              name="productImage"
+              placeholder="產品圖片"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            取消
+          </button>
+          <button type="button" class="btn btn-dark" id="addProductBtn">
+            新增產品
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="modal fade"
+    id="updateModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header text-bg-dark">
+          <h1 class="modal-title fs-5 fw-900" id="exampleModalLabel">
+            產品更新
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <label class="form-label" for="udproductCategory">產品類別</label>
+            <select name="udproductCategory" id="udproductCategory" class="form-select form-select-lg">
+            <option value="" class="text-center" selected disabled>---選擇產品類別---</option>
+            <option value="木材">木材</option>
+            <option value="家具">家具</option>
+            <option value="其他">其他</option>
+            </select>
+          <div class="mb-3">
+            <label for="name" class="form-label">產品名稱</label>
+            <input
+              type="text"
+              class="form-control"
+              name="name"
+              id="name"
+              disabled
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="content" class="form-label">內容</label>
+            <textarea
+              name="content"
+              id="content"
+              class="form-control"
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="price" class="form-label">價格</label>
+            <input
+              type="number"
+              class="form-control"
+              name="price"
+              id="price"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="stock" class="form-label">庫存</label>
+            <input
+              type="number"
+              class="form-control"
+              name="stock"
+              id="stock"
+            />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-light"
+              data-bs-dismiss="modal"
+            >
+              取消
+            </button>
+            <button
+              type="button"
+              class="btn btn-dark"
+              id="updateModal_ok_btn"
+            >
+              確認
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <div id="user-content" style="display: none;">
+        <div class="card">
+          <div class="card-header bg-dark">
+            <div class="row align-items-lg-end">
+
+              <div class="col-md-4 justify-content-end">
+                <input type="text" class="form-control" id="memberSearch" placeholder="搜尋會員名稱...">
+              </div>
+              <div class="col-md-4">
+                <select id="cityFilter" class="form-select">
+                  <option value="">所有縣市</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="card-body p-4" id="member-data">
+            <div class="mb-4">
+              <div class="row">
+                <div class="col-md-6">
+                  <p><strong>帳號：</strong></p>
+                  <p><strong>Email：</strong></p>
+                  <p><strong>電話：</strong></p>
+                  <p><strong>地址：</strong></p>
+                </div>
+                <div class="col-md-6 text-end mt-auto">
+                  <button class="btn btn-dark me-2" id="update_confirm_btn">
+                    更新資料
+                  </button>
+                  <button class="btn btn-secondary" id="delete_confirm_btn">
+                    刪除帳號
+                  </button>
+                </div>
+              </div>
+              <hr>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center">
+                <span class="ms-3">共 <span id="totalMembers">0</span> 筆資料</span>
+              </div>
+              <nav>
+                <ul class="pagination mb-0" id="memberPagination">
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div
+    class="modal fade"
+    id="member_update_Modal"
+    tabindex="-1"
+    aria-labelledby="updateModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateModalLabel">會員資料更新</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label" for="update_username">帳號</label>
+            <input type="text" class="form-control" id="update_username" readonly>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="update_email">Email</label>
+            <input type="email" class="form-control" id="update_email">
+            <div class="valid-feedback">格式正確</div>
+            <div class="invalid-feedback">請輸入有效的 Email 格式</div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="update_phone">電話</label>
+            <input type="tel" class="form-control" id="update_phone">
+            <div class="valid-feedback">格式正確</div>
+            <div class="invalid-feedback">請輸入09開頭的10位數字</div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="update_address">地址</label>
+            <input type="text" class="form-control" id="update_address">
+            <div class="valid-feedback">格式正確</div>
+            <div class="invalid-feedback">地址長度至少需要10個字</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-dark" id="member_update_confirm_btn">確定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <div id="order-content" style="display: none;">
+        <div class="card">
+          <div class="card-header bg-dark">
+            <div class="row align-items-center">
+
+              <div class="col-md-4">
+                <select class="form-select" id="orderStatusFilter">
+                  <option value="">所有狀態</option>
+                  <option value="待處理">待處理</option>
+                  <option value="處理中">處理中</option>
+                  <option value="已完成">已完成</option>
+                  <option value="已取消">已取消</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>訂單編號</th>
+                    <th>訂購時間</th>
+                    <th>會員帳號</th>
+                    <th>訂單金額</th>
+                    <th>訂單狀態</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody id="orderTableBody">
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center">
+                <span class="ms-3">共 <span id="totalOrders">0</span> 筆訂單</span>
+              </div>
+              <nav>
+                <ul class="pagination mb-0" id="orderPagination">
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="orderDetailModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+              <h5 class="modal-title">訂單詳情</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <p><strong>訂單編號：</strong><span id="modalOrderId"></span></p>
+                  <p><strong>訂購時間：</strong><span id="modalOrderTime"></span></p>
+                  <p><strong>會員帳號：</strong><span id="modalUsername"></span></p>
+                </div>
+                <div class="col-md-6">
+                  <p><strong>聯絡電話：</strong><span id="modalPhone"></span></p>
+                  <p><strong>收件地址：</strong><span id="modalAddress"></span></p>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>商品名稱</th>
+                      <th>單價</th>
+                      <th>數量</th>
+                      <th>小計</th>
+                    </tr>
+                  </thead>
+                  <tbody id="modalOrderItems">
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="3" class="text-end"><strong>總計：</strong></td>
+                      <td><strong>$<span id="modalTotalAmount">0</span></strong></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="me-auto">
+                <select class="form-select" id="modalOrderStatus">
+                  <option value="待處理">待處理</option>
+                  <option value="處理中">處理中</option>
+                  <option value="已完成">已完成</option>
+                  <option value="已取消">已取消</option>
+                </select>
+              </div>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+              <button type="button" class="btn btn-dark" id="updateOrderStatusBtn">更新狀態</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="chart-content" style="display: none;">
+        <div class="row mb-4">
+          <div class="col-md-3">
+            <div class="card bg-light">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <div class="me-4">
+                    <i class="fas fa-users fa-3x text-primary"></i>
+                  </div>
+                  <div>
+                    <h6 class="card-title text-muted mb-0">目前會員</h6>
+                    <div class="d-flex align-items-baseline">
+                      <h3 class="card-text mb-0" id="currentMemberCount"></h3>
+                      <h6 class="card-title text-muted mb-0 ms-2">位</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="card bg-light">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <div class="me-4">
+                    <i class="fas fa-user-plus fa-3x text-success"></i>
+                  </div>
+                  <div>
+                    <h6 class="card-title text-muted mb-0">本月新增</h6>
+                    <div class="d-flex align-items-baseline">
+                      <h3 class="card-text mb-0" id="newMemberCount"></h3>
+                      <h6 class="card-title text-muted mb-0 ms-2">位</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="card bg-light">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <div class="me-4">
+                    <i class="fas fa-shopping-cart fa-3x text-warning"></i>
+                  </div>
+                  <div>
+                    <h6 class="card-title text-muted mb-0">本月訂單</h6>
+                    <div class="d-flex align-items-baseline">
+                      <h3 class="card-text mb-0" id="monthlyOrderCount">0</h3>
+                      <h6 class="card-title text-muted mb-0 ms-2">筆</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="card bg-light">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <div class="me-4">
+                    <i class="fas fa-money-bill fa-3x text-danger"></i>
+                  </div>
+                  <div>
+                    <h6 class="card-title text-muted mb-0">本月營業額</h6>
+                    <div class="d-flex align-items-baseline">
+                      <h3 class="card-text mb-0">$<span id="monthlyRevenue">0</span></h3>
+                      <h6 class="card-title text-muted mb-0 ms-2">元</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body" style="height: 400px;">
+                        <canvas id="myChart01"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body" style="height: 400px;">
+                        <canvas id="myChart02"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <canvas id="myChart03"></canvas>
+            </div>
+        </div>
+
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+
+      var u_id;
+      var mychart01;
+      var mychart02;
+      var mychart03;
+      var regionTitle = [];
+      var counter = {};
+      var regionData = [];
+      var city;
+
+      let currentPage = 1;
+      const itemsPerPage = 25;
+      let allMembers = [];
+      let allProducts = [];
+      let allOrders = [];
+
+      function destroyCharts() {
+          if (mychart01) {
+              mychart01.destroy();
+              mychart01 = null;
+          }
+          if (mychart02) {
+              mychart02.destroy();
+              mychart02 = null;
+          }
+          if (mychart03) {
+              mychart03.destroy();
+              mychart03 = null;
+          }
+      }
+
+      $(function() {
+        showContent('product');
+        if (getCookie("UID")) {
+          checkLogin();
+          loadProducts();
+        }
+
+        initCharts();
+
+        $("#updateModal_ok_btn").click(updateProduct);
+        
+        $("#member_update_confirm_btn").click(function() {
+            updateMember();
+        });
+
+        $.ajax({
+          type: "GET",
+          url: "js/CityCountyData.json",
+          dataType: "json",
+          async: false,
+          success: function(data) {
+            city = data;
+          },
+          error: function() {
+            console.log("error--js/CityCountyData.json");
+          }
+        });
+
+        $("#memberSearch").on('input', function() {
+            filterMembers();
+        });
+
+        $("#cityFilter").on('change', function() {
+            filterMembers();
+        });
+
+        if(window.location.hash === '#chart') {
+          showContent('chart');
+        }
+
+        $("#productPageSize").change(function() {
+          itemsPerPage = parseInt($(this).val());
+          currentPage = 1;
+          loadProducts();
+        });
+
+        $("#memberPageSize").change(function() {
+          itemsPerPage = parseInt($(this).val());
+          currentPage = 1;
+          loadMembers();
+        });
+
+        $("#orderPageSize").change(function() {
+          itemsPerPage = parseInt($(this).val());
+          currentPage = 1;
+          loadOrders();
+        });
+      });
+
+      function showContent(contentType) {
+        $('#product-content, #user-content, #order-content, #chart-content').hide();
+        
+        $('.nav-link').removeClass('active');
+        
+        switch(contentType) {
+          case 'product':
+            $('#product-content').show();
+
+            break;
+          case 'user':
+            $('#user-content').show();
+            loadMembers();
+            break;
+          case 'order':
+            $('#order-content').show();
+            loadOrders();
+            break;
+          case 'chart':
+            $('#chart-content').show();
+            destroyCharts(); 
+            setTimeout(() => {
+                initCharts(); 
+                loadDashboardStats(); 
+            }, 100);
+            break;
+        }
+ 
+        $(`[onclick="showContent('${contentType}')"]`).addClass('active');
+      }
+
+      function checkLogin() {
+        var JSONdata = { "UID": getCookie("UID") };
+        
+        $.ajax({
+          type: "POST",
+          url: "member_control_API_v1.php?action=checkUID",
+          data: JSON.stringify(JSONdata),
+          dataType: "json",
+          success: function(data) {
+            if (data.state) {
+              $("#welcome_user").text(data.login_data.Username);
+              $("#show_login_name").removeClass("d-none");
+            }
+          },
+          error: function() {
+            Swal.fire({
+              title: "API介接錯誤!",
+              text: "member_control_API_v1.php?action=checkUID",
+              icon: "error"
+            });
+          }
+        });
+      }
+
+
+      function loadProducts() {
+        
+        $.ajax({
+          type: "POST",
+          url: "product_API.php?action=getProducts",
+          dataType: "json",
+          success: showdata_checkUID,
+          error: function() {
+            Swal.fire({
+              title: "API介接錯誤!",
+              text: "product_API.php?action=getProducts",
+              icon: "error"
+            });
+          }
+        });
+      }
+
+      function updateProduct() {
+        var json_data = {
+          Id: u_id,
+          Category: $("#udproductCategory").val(),
+          Name: $("#name").val(),
+          Content: $("#content").val(),
+          Price: $("#price").val(),
+          Stock: $("#stock").val()
+        };
+
+        $.ajax({
+          type: "POST",
+          url: "product_API.php?action=updateProduct",
+          data: JSON.stringify(json_data),
+          dataType: "json",
+          success: function(data) {
+            if(data.state) {
+              Swal.fire({
+                title: "更新成功",
+                icon: "success",
+                confirmButtonColor: "#000000"
+              }).then(() => {
+                $("#updateModal").modal("hide");
+              });
+            }
+          },
+          error: function() {
+            Swal.fire({
+              title: "API介接錯誤!",
+              text: "product_API.php?action=updateProduct",
+              icon: "error"
+            });
+          }
+        });
+      }
+
+      $("#addProductBtn").click(function () {
+          var img_location;
+          var form_Data = new FormData();
+
+          form_Data.append("file", productImage.files[0]);
+
+          $.ajax({
+            type: "POST",
+            url: "product_API.php?action=img_turn",
+            data: form_Data,
+            dataType: "json",
+            cache: false,
+            contentType: false,
+            processData: false,
+            async: false,
+            success: function (data) { 
+              img_location = data.location;
+            },
+            error: function () {
+              alert("[上傳失敗]--1224_form_upload_file_PHP.php");
+            },
+          });
+          var json_data = {};
+
+          json_data["Category"] = $("#productCategory").val();
+          json_data["Name"] = $("#productName").val();
+          json_data["Content"] = $("#productContent").val();
+          json_data["Price"] = $("#productPrice").val();
+          json_data["Stock"] = $("#productStock").val();         
+          json_data["Image"] = img_location;
+
+          console.log(JSON.stringify(json_data));
+
+          $.ajax({
+            type: "POST",
+            url: "product_API.php?action=addProduct",
+            data: JSON.stringify(json_data),
+            dataType: "json",
+            contentType: "application/json",
+            success: function (data) {        
+              location.href = "miniwoodker_admin.html";
+            },
+            error: function () {
+              console.log("error:API");
+            },
+          });
+        });
+
+      function showdata_checkUID(data) {
+        $("#mydata").empty();
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const productsToShow = data.data.slice(startIndex, endIndex);
+
+        productsToShow.forEach(function (item) {
+          var strHTML = `<tr>
+            <td data-th="產品類別" class="text-center">${item.Category}</td>
+            <td data-th="產品名稱" class="text-center">${item.Name}</td>
+            <td data-th="圖片" class="text-center"><img src="${item.Image}" style="width: 50px; height: 50px;" alt=""></td>
+            <td data-th="內容" class="text-center">${item.Content}</td>
+            <td data-th="價格" class="text-center">${item.Price}</td>
+            <td data-th="庫存" class="text-center">${item.Stock}</td>
+            <td data-th="建檔時間">${item.Created_at}</td>
+            <td data-th="按鈕">
+              <div class="d-flex justify-content-between">
+                <button class="btn btn-secondary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#updateModal" data-id="${item.Id}"
+                data-category="${item.Category}" data-name="${item.Name}" data-image="XX" data-content="${item.Content}" data-price="${item.Price}" data-stock="${item.Stock}" data-created_at="XX"
+                id="update_btn">更新</button>
+                <button class="btn btn-dark btn-sm" id="deleteProduct" data-id="${item.Id}" data-name="${item.Name}">刪除</button>
+              </div>
+            </td>
+          </tr>`;
+          $("#mydata").append(strHTML);
+        });
+
+        $("#totalProducts").text(data.data.length);
+        
+        updatePagination(data.data.length, '#productPagination');
+
+        bindProductEvents();
+      }
+
+      function addProduct() {
+        var formData = new FormData();
+        formData.append("file", $("#productImage")[0].files[0]);
+
+        $.ajax({
+          type: "POST",
+          url: "product_API.php?action=img_turn",
+          data: formData,
+          dataType: "json",
+          cache: false,
+          contentType: false,
+          processData: false,
+          success: function(data) {
+            var productData = {
+              Category: $("#productCategory").val(),
+              Name: $("#productName").val(),
+              Content: $("#productContent").val(),
+              Price: $("#productPrice").val(),
+              Stock: $("#productStock").val(),
+              Image: data.location
+            };
+
+            $.ajax({
+              type: "POST",
+              url: "product_API.php?action=addProduct",
+              data: JSON.stringify(productData),
+              dataType: "json",
+              contentType: "application/json",
+              success: function(response) {
+                if(response.state) {
+                  Swal.fire({
+                    title: "新增成功",
+                    icon: "success",
+                    confirmButtonColor: "#000000"
+                  }).then(() => {
+                    $("#addProductModal").modal("hide");
+                  });
+                }
+              },
+              error: function() {
+                Swal.fire({
+                  title: "API介接錯誤!",
+                  text: "product_API.php?action=addProduct",
+                  icon: "error"
+                });
+              }
+            });
+          },
+          error: function() {
+            Swal.fire({
+              title: "圖片上傳失敗",
+              icon: "error"
+            });
+          }
+        });
+      }
+
+      function loadMembers() {
+        $.ajax({
+          type: "POST",
+          url: "member_control_API_v1.php?action=getalldata",
+          dataType: "json",
+          success: function(response) {
+            if(response.state && response.login_data) {
+              allMembers = response.login_data;
+              displayMembers(allMembers);
+              initCityOptions(allMembers);
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: '載入失敗',
+                text: '無法獲取會員資料'
+              });
+            }
+          },
+          error: function() {
+            Swal.fire({
+              title: "API介接錯誤!",
+              text: "member_control_API_v1.php?action=getalldata",
+              icon: "error"
+            });
+          }
+        });
+      }
+
+      function initCityOptions(members) {
+        const cities = new Set();
+        
+        members.forEach(member => {
+          if (member.Address) {
+            let cityName = "";
+            if (member.Address.includes("市")) {
+              cityName = member.Address.split("市")[0] + "市";
+            } else if (member.Address.includes("縣")) {
+              cityName = member.Address.split("縣")[0] + "縣";
+            }
+            if (cityName) {
+              cities.add(cityName);
+            }
+          }
+        });
+
+        const cityFilter = $("#cityFilter");
+        cityFilter.empty();
+        cityFilter.append('<option value="">所有縣市</option>');
+
+        Array.from(cities)
+          .sort()
+          .forEach(city => {
+            const cityValue = city.replace(/[市縣]$/, ''); 
+            cityFilter.append(`<option value="${cityValue}">${city}</option>`);
+          });
+      }
+
+      function filterMembers() {
+        const searchText = $("#memberSearch").val().toLowerCase();
+        const selectedCity = $("#cityFilter").val();
+        
+        const filteredMembers = allMembers.filter(member => {
+          const matchesSearch = member.Username.toLowerCase().includes(searchText);
+          let matchesCity = true;
+          if (selectedCity) {
+            matchesCity = member.Address && (
+              member.Address.includes(selectedCity + "市") || 
+              member.Address.includes(selectedCity + "縣")
+            );
+          }
+          return matchesSearch && matchesCity;
+        });
+
+        $("#member-data").empty();
+        filteredMembers.forEach(function(item) {
+          var strHTML = `
+            <div class="mb-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>帳號：</strong> ${item.Username}</p>
+                        <p><strong>Email：</strong> ${item.Email}</p>
+                        <p><strong>電話：</strong> ${item.Phone}</p>
+                        <p><strong>地址：</strong> ${item.Address}</p>
+                    </div>
+                    <div class="col-md-6 text-end mt-auto">
+                        <button class="btn btn-dark me-2 update-member-btn" 
+                            data-username="${item.Username}"
+                            data-email="${item.Email}"
+                            data-phone="${item.Phone}"
+                            data-address="${item.Address}">
+                            更新資料
+                        </button>
+                        <button class="btn btn-secondary" onclick="deleteMember('${item.Username}')">
+                            刪除帳號
+                        </button>
+                    </div>
+                </div>
+                <hr>
+            </div>`;
+          $("#member-data").append(strHTML);
+        });
+      }
+
+      function showUpdateModal(username, email, phone, address) {
+        $("#update_email, #update_phone, #update_address").removeClass('is-valid is-invalid');
+        
+        $("#update_username").val(username);
+        $("#update_email").val(email);
+        $("#update_phone").val(phone);
+        $("#update_address").val(address);
+        
+        bindFormValidation();
+        
+        $("#member_update_Modal").modal('show');
+      }
+
+      function bindFormValidation() {
+        $("#update_email, #update_phone, #update_address").off('input');
+        
+        $("#update_email").on('input', function() {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (emailRegex.test($(this).val())) {
+                $(this).removeClass('is-invalid').addClass('is-valid');
+            } else {
+                $(this).removeClass('is-valid').addClass('is-invalid');
+            }
+        });
+
+        $("#update_phone").on('input', function() {
+            const phoneRegex = /^09\d{8}$/;
+            if (phoneRegex.test($(this).val())) {
+                $(this).removeClass('is-invalid').addClass('is-valid');
+            } else {
+                $(this).removeClass('is-valid').addClass('is-invalid');
+            }
+        });
+
+        $("#update_address").on('input', function() {
+            if ($(this).val().length >= 10) {
+                $(this).removeClass('is-invalid').addClass('is-valid');
+            } else {
+                $(this).removeClass('is-valid').addClass('is-invalid');
+            }
+        });
+
+        $("#member_update_confirm_btn").off('click').on('click', function() {
+            updateMember();
+        });
+      }
+
+      function updateMember() {
+        const updateData = {
+          "Username": $("#update_username").val(),
+          "Email": $("#update_email").val(),
+          "Phone": $("#update_phone").val(),
+          "Address": $("#update_address").val()
+        };
+
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^09\d{8}$/;
+        
+        let isValid = true;
+        let errorMessage = [];
+
+        if (!emailRegex.test(updateData.Email)) {
+          isValid = false;
+          errorMessage.push('Email 格式不正確');
+          $("#update_email").removeClass('is-valid').addClass('is-invalid');
+        }
+
+        if (!phoneRegex.test(updateData.Phone)) {
+          isValid = false;
+          errorMessage.push('電話格式不正確 (需為09開頭的10位數字)');
+          $("#update_phone").removeClass('is-valid').addClass('is-invalid');
+        }
+
+        if (updateData.Address.length < 10) { 
+          isValid = false;
+          errorMessage.push('地址長度不足（至少需要10個字）');
+          $("#update_address").removeClass('is-valid').addClass('is-invalid');
+        }
+
+        if (!isValid) {
+          Swal.fire({
+            icon: 'warning',
+            title: '資料格式不正確',
+            text: errorMessage.join('\n'),
+            confirmButtonColor: "#000000"
+          });
+          return;
+        }
+
+        $.ajax({
+          type: "POST",
+          url: "member_control_API_v1.php?action=update_member",
+          data: JSON.stringify(updateData),
+          contentType: "application/json",
+          dataType: "json",
+          success: function(response) {
+            console.log('Update response:', response);
+            if (response.state) {
+              Swal.fire({
+                icon: 'success',
+                title: '更新成功',
+                text: '會員資料已更新',
+                confirmButtonColor: "#000000"
+              }).then(() => {
+                $('#member_update_Modal').modal('hide');
+                loadMembers();
+              });
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: '更新失敗',
+                text: response.message || '請確認所有欄位格式是否正確',
+                confirmButtonColor: "#000000"
+              });
+            }
+          },
+          error: function(xhr, status, error) {
+            console.error('AJAX error:', {xhr, status, error});
+            Swal.fire({
+              icon: 'error',
+              title: '系統錯誤',
+              text: '請稍後再試',
+              confirmButtonColor: "#000000"
+            });
+          }
+        });
+      }
+
+      function showdata_getalldata(data) {
+        console.log(data);
+
+        $("#mydata").empty();
+        data.login_data.forEach(function (item) {
+          var strHTML = `<div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">帳號</label>
+                <input  type="text"    class="form-control"  disabled   data-th="帳號" value="${item.Username}">
+              </div>  
+            </div>            
+                
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="updateModal_email" class="form-label">Email</label>
+                <input type="email"   name="updateModal_email"  disabled  class="form-control" data-th="Email" required value="${item.Email}">
+                <div class="valid-feedback">符合規則</div>
+                <div class="invalid-feedback">不符合規則</div>
+              </div>
+            </div> 
+
+            <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="updateModal_phone" class="form-label">電話</label>
+              <input type="phone"   name="updateModal_phone"  disabled  class="form-control" data-th="Phone" required value="${item.Phone}">
+              <div class="valid-feedback">符合規則</div>
+              <div class="invalid-feedback">不符合規則</div>
+            </div>
+          </div> 
+
+          <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="updateModal_address" class="form-label">地址</label>
+            <input type="address" id="updateModal_address" name="updateModal_address" disabled class="form-control "data-th="Address" required value="${item.Address}">
+            <div class="valid-feedback">符合規則</div>
+            <div class="invalid-feedback">不符合規則</div>
+          </div>
+        </div>
+              
+
+            <div class="row">
+              <div class="col-12 d-flex justify-content-end">
+                <button   class="btn btn-dark"  data-username=${item.Username}  data-email=${item.Email}  data-ID=${item.ID}  
+                data-Password=${item.Password}  data-Phone=${item.Phone}  data-Address=${item.Address}  data-UID=${item.UID}  
+                data-Level=${item.Level}  data-Creat_at=${item.Creat_at} id="updateModal_updatebtn" data-bs-toggle="modal" data-bs-target="#member_update_Modal"> 更新資料
+                </button>
+
+                <button   class="btn btn-secondary ms-2"  data-username=${item.Username}  data-email=${item.Email}  data-ID=${item.ID}  
+                data-Password=${item.Password}  data-Phone=${item.Phone}  data-Address=${item.Address}  data-UID=${item.UID}  
+                data-Level=${item.Level}  data-Creat_at=${item.Creat_at} id="deleteModal_updatebtn"> 刪除帳號
+                </button> 
+                
+              </div>
+            </div>`;
+          $("#mydata").append(strHTML);
+        });
+      }
+
+      function update_memberDB_showdata(data) {
+        console.log(data);
+
+        if (data.state) {
+          Swal.fire({
+            title: data.message,
+            confirmButtonText: "確認",
+            confirmButtonColor: "#000000",
+            allowOutsideClick: false,
+          }).then((result) => {
+            location.href = "miniwoodker_admin.html";
+          });
+        } else {
+          alert(data.message);
+        }
+      }
+
+      function deleteMember(username) {
+        Swal.fire({
+          title: "確定要刪除嗎？",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#000000",
+          cancelButtonColor: "#6c757d",
+          confirmButtonText: "確定",
+          cancelButtonText: "取消"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              type: "POST",
+              url: "member_control_API_v1.php?action=delete_member",
+              data: JSON.stringify({ Username: username }),
+              dataType: "json",
+              success: function(response) {
+                if(response.state) {
+                  Swal.fire({
+                    title: "刪除成功",
+                    icon: "success",
+                    confirmButtonColor: "#000000"
+                  }).then(() => {
+                    loadMembers();
+                    loadChartData(); 
+                  });
+                }
+              },
+              error: function() {
+                Swal.fire({
+                  title: "API介接錯誤!",
+                  text: "member_control_API_v1.php?action=delete_member",
+                  icon: "error"
+                });
+              }
+            });
+          }
+        });
+      }
+
+      function initCharts() {
+        const ctx1 = document.getElementById('myChart01');
+        if (ctx1) {
+            mychart01 = new Chart(ctx1, {
+                type: 'pie',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: '會員人數',
+                        data: [],
+                        backgroundColor: [
+                            "rgb(74, 111, 165)",
+                            "rgb(123, 143, 161)",
+                            "rgb(168, 159, 145)",
+                            "rgb(220, 214, 204)",
+                            "rgb(212, 196, 196)",
+                            "rgb(46, 46, 46)",
+                            "rgb(153, 153, 153)",
+                            "rgb(200, 200, 200)",
+                            "rgb(120, 130, 140)",
+                            "rgb(175, 184, 191)"
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'right',
+                            labels: {
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: '會員居住縣市分布統計',
+                            font: {
+                                size: 16
+                            }
+                        }
+                    },
+                }
+            });
+        }
+
+        const ctx2 = document.getElementById('myChart02');
+        if (ctx2) {
+            mychart02 = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        data: [],
+                        backgroundColor: [
+                            "rgb(74, 111, 165)",
+                            "rgb(123, 143, 161)",
+                            "rgb(168, 159, 145)",
+                            "rgb(220, 214, 204)",
+                            "rgb(212, 196, 196)",
+                            "rgb(46, 46, 46)",
+                            "rgb(153, 153, 153)",
+                            "rgb(200, 200, 200)",
+                            "rgb(120, 130, 140)",
+                            "rgb(175, 184, 191)"
+                        ],
+                    }]
+                },
+                  options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+
+                        title: {
+                            display: true,
+                            text: '產品銷售統計',
+                            font: {
+                                size: 16
+                            }
+                        }
+                    },
+                }
+            });
+        }
+
+        const ctx3 = document.getElementById('myChart03');
+        if (ctx3) {
+            mychart03 = new Chart(ctx3, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: '每日營收',
+                        data: [],
+                        backgroundColor: "rgba(75, 192, 192, 0.2)",
+                        borderColor: "rgb(75, 192, 192)",
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        },
+                        title: {
+                            display: true,
+                            text: '近30天營收趨勢',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            },
+                            padding: {
+                                top: 10,
+                                bottom: 20
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: '營收金額 (NT$)'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value.toLocaleString();
+                                }
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                maxRotation: 45,
+                                minRotation: 45
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        loadChartData();
+      }
+
+      function loadDashboardStats() {
+        $.ajax({
+            type: "POST",
+            url: "member_control_API_v1.php?action=getalldata",
+            dataType: "json",
+            success: function(response) {
+                if(response.state && response.login_data) {
+                    const allMembers = Array.isArray(response.login_data) ? response.login_data : [response.login_data];
+
+                    $("#currentMemberCount").text(allMembers.length);
+                    
+                    const currentDate = new Date();
+                    const thisMonth = currentDate.getMonth() + 1;
+                    const thisYear = currentDate.getFullYear();
+                    
+                    const newMembers = allMembers.filter(member => {
+                        if (!member.Created_at) return false;
+                        const createDate = new Date(member.Created_at);
+                        return createDate.getMonth() + 1 === thisMonth && 
+                               createDate.getFullYear() === thisYear;
+                    });
+                    
+                    $("#newMemberCount").text(newMembers.length);
+                }
+            },
+            error: function() {
+                $("#currentMemberCount").text('0');
+                $("#newMemberCount").text('0');
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "car_API.php?action=getOrders",
+            data: JSON.stringify({
+                type: 'stats'
+            }),
+            dataType: "json",
+            success: function(response) {
+                if(response.state && response.data) {
+                    $("#monthlyOrderCount").text(response.data.order_count || 0);
+                    $("#monthlyRevenue").text((response.data.total_revenue || 0).toLocaleString());
+                }
+            },
+            error: function() {
+                $("#monthlyOrderCount").text('0');
+                $("#monthlyRevenue").text('0');
+            }
+        });
+      }
+
+
+      $(document).ready(function() {
+
+        $('[onclick="showContent(\'chart\')"]').click(function() {
+          setTimeout(function() {
+            loadDashboardStats();
+          }, 100);
+        });
+            
+        if(window.location.hash === '#chart') {
+            setTimeout(function() {
+                loadDashboardStats();
+            }, 100);
+        }
+      });
+
+      $("#revenueChartPeriod, #orderChartPeriod").change(function() {
+        const chartType = $(this).attr('id').replace('ChartPeriod', '');
+        const period = $(this).val();
+        loadChartData(chartType, period);
+      });
+
+
+      function loadChartData(chartType, period) {
+        $.ajax({
+          type: "POST",
+          url: `stats_API.php?action=get${chartType}Data`,
+          data: JSON.stringify({ period: period }),
+          dataType: "json",
+          success: function(response) {
+            if(response.state) {
+              updateChart(chartType, response.data);
+            }
+          }
+        });
+      }
+
+      function logout() {
+        setCookie("UID", "", -1);
+        Swal.fire({
+          title: "已登出",
+          icon: "success",
+          confirmButtonColor: "#000000",
+          confirmButtonText: "確認"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "miniwoodker_home.html";
+          }
+        });
+      }
+
+      function initRegionChart() {
+        const ctx = document.getElementById('myChart01').getContext('2d');
+        mychart01 = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: [],
+            datasets: [{
+              data: [],
+              backgroundColor: [
+                "rgb(74, 111, 165)",
+                "rgb(123, 143, 161)",
+                "rgb(168, 159, 145)",
+                "rgb(220, 214, 204)",
+                "rgb(212, 196, 196)",
+                "rgb(46, 46, 46)",
+                "rgb(153, 153, 153)",
+                "rgb(200, 200, 200)",
+                "rgb(120, 130, 140)",
+                "rgb(175, 184, 191)"
+              ],
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'top',
+              },
+              title: {
+                display: true,
+                text: '會員居住縣市分布統計'
+              }
+            },
+           
+          }
+        });
+      }
+
+      function loadChartData() {
+        $.ajax({
+          type: "POST",
+          url: "member_control_API_v1.php?action=getalldata",
+          dataType: "json",
+          success: function(response) {
+            if(response.login_data && Array.isArray(response.login_data)) {
+              regionTitle = [];
+              counter = {};
+              regionData = [];
+              
+              response.login_data.forEach(function(item) {
+                if(item.Address) {
+                  let cityName = "";
+                  if(item.Address.includes("市")) {
+                    cityName = item.Address.split("市")[0] + "市";
+                  } else if(item.Address.includes("縣")) {
+                    cityName = item.Address.split("縣")[0] + "縣";
+                  }
+                  
+                  if(cityName) {
+                    if(!counter[cityName]) {
+                      counter[cityName] = regionTitle.length;
+                      regionTitle.push(cityName);
+                      regionData[counter[cityName]] = [];
+                    }
+                    regionData[counter[cityName]].push(item);
+                  }
+                }
+              });
+
+              if(mychart01) {
+                mychart01.data.labels = regionTitle;
+                mychart01.data.datasets[0].data = regionTitle.map(title => 
+                  regionData[counter[title]] ? regionData[counter[title]].length : 0
+                );
+                mychart01.update();
+              }
+            }
+          },
+          error: function() {
+            
+          }
+        });
+
+        $.ajax({
+          type: "POST",
+          url: "product_API.php?action=getProductSales",
+          dataType: "json",
+          success: function(response) {
+            if(response.state && response.data) {
+              const productLabels = response.data.map(item => item.Name);
+              const salesData = response.data.map(item => parseInt(item.TotalQuantity));
+
+              if(mychart02) {
+                mychart02.data.labels = productLabels;
+                mychart02.data.datasets[0].data = salesData;
+                mychart02.update();
+              }
+            }
+          },
+          error: function() {
+            
+          }
+        });
+
+
+        $.ajax({
+          type: "GET",
+          url: 'car_API.php?action=getRevenue&period=day',
+          dataType: 'json',
+          success: function(response) {
+            if (response.state && response.data) {
+              const dates = response.data.map(item => item.date);
+              const revenues = response.data.map(item => item.revenue);
+              
+              if (mychart03) {
+                mychart03.data.labels = dates;
+                mychart03.data.datasets[0].data = revenues;
+                mychart03.update();
+              }
+            } else {
+              console.error('獲取營收數據失敗:', response.message);
+            }
+          },
+          error: function(xhr, status, error) {
+            console.error('獲取營收數據失敗:', error);
+          }
+        });
+      }
+
+
+      function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+        let expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+      }
+
+      function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(";");
+        for (let i = 0; i < ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) == " ") {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+
+      function loadOrders() {
+        const userId = getCookie("UID");
+
+        
+        if (!userId) {
+            Swal.fire({
+                icon: 'error',
+                title: '請先登入',
+                text: '需要登入才能查看訂單資料',
+                confirmButtonColor: "#000000"
+            });
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "car_API.php?action=getOrders",
+            data: JSON.stringify({
+                User_id: userId,
+                type: 'list'
+            }),
+            dataType: "json",
+            success: function(response) {
+
+                if(response.state) {
+                    if(!response.data || response.data.length === 0) {
+                        $("#orderTableBody").html(`
+                            <tr>
+                                <td colspan="6" class="text-center">目前沒有訂單記錄</td>
+                            </tr>
+                        `);
+                        $("#totalOrders").text("0");
+                    } else {
+                        const selectedStatus = $("#orderStatusFilter").val();
+                        let filteredOrders = Array.isArray(response.data) ? response.data : [response.data];
+                        
+                        if(selectedStatus) {
+                            filteredOrders = filteredOrders.filter(order => order.Status === selectedStatus);
+                        }
+                        
+                        displayOrders(filteredOrders);
+                    }
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '載入失敗',
+                        text: response.message || '無法獲取訂單資料',
+                        confirmButtonColor: "#000000"
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                Swal.fire({
+                    title: "API介接錯誤!",
+                    text: "無法連接訂單系統，請稍後再試",
+                    icon: "error",
+                    confirmButtonColor: "#000000"
+                });
+            }
+        });
+      }
+
+      function displayOrders(orders) {
+        const tbody = $("#orderTableBody");
+        tbody.empty();
+        
+        if(!orders || orders.length === 0) {
+            tbody.html(`
+                <tr>
+                    <td colspan="6" class="text-center">目前沒有訂單記錄</td>
+                </tr>
+            `);
+            return;
+        }
+        
+        orders.forEach(order => {
+          const row = `
+            <tr>
+                <td>${order.Order_id || '---'}</td>
+                <td>${order.Order_date || '---'}</td>
+                <td>${order.Username || '---'}</td>
+                <td>$${order.Total_Amount || '0'}</td>
+                <td>
+                    <span class="badge ${getStatusBadgeClass(order.Status || '未知')}">
+                        ${order.Status || '未知'}
+                    </span>
+                </td>
+                <td>
+                    <button class="btn btn-dark btn-sm" onclick="showOrderDetail('${order.Order_id}')">
+                        查看詳情
+                    </button>
+                </td>
+            </tr>
+        `;
+        tbody.append(row);
+      });
+
+        $("#totalOrders").text(orders.length);
+        
+        updatePagination(orders.length, '#orderPagination');
+      }
+
+      function getStatusBadgeClass(status) {
+        switch(status) {
+          case '待處理': return 'bg-warning';
+          case '處理中': return 'bg-info';
+          case '已完成': return 'bg-success';
+          case '已取消': return 'bg-secondary';
+          default: return 'bg-primary';
+        }
+      }
+
+      function showOrderDetail(orderId) {
+        $.ajax({
+          type: "POST",
+          url: "car_API.php?action=getOrderDetail",
+          data: JSON.stringify({ 
+            User_id: getCookie("UID"),
+            Order_id: orderId 
+          }),
+          dataType: "json",
+          success: function(response) {
+            console.log("Order detail response:", response);
+            if(response.state) {
+              const order = response.data;
+              
+              $("#modalOrderId").text(order.Order_id);
+              $("#modalOrderTime").text(order.Order_date);
+              $("#modalUsername").text(order.Username);
+              $("#modalPhone").text(order.Phone);
+              $("#modalAddress").text(order.Address);
+              $("#modalTotalAmount").text(order.Total_Amount);
+              $("#modalOrderStatus").val(order.Status);
+              
+              const itemsBody = $("#modalOrderItems");
+              itemsBody.empty();
+              
+              const row = `
+                <tr>
+                  <td>${order.Products}</td>
+                  <td>$${order.Price}</td>
+                  <td>${order.Quantity}</td>
+                  <td>$${order.Subtotal}</td>
+                </tr>
+              `;
+              itemsBody.append(row);
+              
+              $("#orderDetailModal").modal('show');
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: '載入失敗',
+                text: response.message || '無法獲取訂單詳情',
+                confirmButtonColor: "#000000",
+                confirmButtonText: "確認"
+              });
+            }
+          },
+          error: function(xhr, status, error) {
+            console.error("AJAX error:", {xhr, status, error});
+            Swal.fire({
+              title: "API介接錯誤!",
+              text: "無法獲取訂單詳情",
+              icon: "error",
+              confirmButtonColor: "#000000",
+              confirmButtonText: "確認"
+            });
+          }
+        });
+      }
+
+      $("#updateOrderStatusBtn").click(function() {
+        const orderId = $("#modalOrderId").text();
+        const newStatus = $("#modalOrderStatus").val();
+        
+        $.ajax({
+          type: "POST",
+          url: "car_API.php?action=updateOrderStatus",
+          data: JSON.stringify({
+            Order_id: orderId,
+            Status: newStatus
+          }),
+          dataType: "json",
+          success: function(response) {
+            if(response.state) {
+              Swal.fire({
+                icon: 'success',
+                title: '更新成功',
+                text: '訂單狀態已更新',
+                confirmButtonColor: "#000000",
+                confirmButtonText: "確認"
+              }).then(() => {
+                $("#orderDetailModal").modal('hide');
+                loadOrders();
+              });
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: '更新失敗',
+                text: response.message || '無法更新訂單狀態',
+                confirmButtonColor: "#000000",
+                confirmButtonText: "確認"
+              });
+            }
+          },
+          error: function(xhr, status, error) {
+            console.error("AJAX error:", {xhr, status, error});
+            Swal.fire({
+              title: "API介接錯誤!",
+              text: "無法更新訂單狀態",
+              icon: "error",
+              confirmButtonColor: "#000000",
+              confirmButtonText: "確認"
+            });
+          }
+        });
+      });
+
+      $("#orderStatusFilter").change(function() {
+        currentPage = 1;
+        loadOrders();
+      });
+
+      function updatePagination(totalItems, paginationId) {
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        const pagination = $(paginationId);
+        pagination.empty();
+
+        pagination.append(`
+          <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+            <a class="page-link" href="#" data-page="${currentPage - 1}">上一頁</a>
+          </li>
+        `);
+
+        for (let i = 1; i <= totalPages; i++) {
+          pagination.append(`
+            <li class="page-item ${currentPage === i ? 'active' : ''}">
+              <a class="page-link" href="#" data-page="${i}">${i}</a>
+            </li>
+          `);
+        }
+
+        pagination.append(`
+          <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+            <a class="page-link" href="#" data-page="${currentPage + 1}">下一頁</a>
+          </li>
+        `);
+
+  
+        $(`${paginationId} .page-link`).click(function(e) {
+          e.preventDefault();
+          const newPage = parseInt($(this).data('page'));
+          if (newPage > 0 && newPage <= totalPages) {
+            currentPage = newPage;
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            if (paginationId === '#orderPagination') {
+              loadOrders();
+            } else if (paginationId === '#productPagination') {
+              loadProducts();
+            } else if (paginationId === '#memberPagination') {
+              loadMembers();
+            }
+          }
+        });
+      }
+
+      function bindProductEvents() {
+        $("#mydata #update_btn").click(function () {
+          u_id = $(this).data("id");
+          $("#udproductCategory").val($(this).data("category"));
+          $("#name").val($(this).data("name"));
+          $("#content").val($(this).data("content"));
+          $("#price").val($(this).data("price"));
+          $("#stock").val($(this).data("stock"));
+        });
+
+        $("#mydata #deleteProduct").click(function () {
+          const productId = $(this).data("id");
+          Swal.fire({
+            title: "確定要刪除嗎？",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#000000",
+            cancelButtonColor: "#6c757d",
+            confirmButtonText: "確定",
+            cancelButtonText: "取消"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              $.ajax({
+                type: "POST",
+                url: "product_API.php?action=deleteProduct",
+                data: JSON.stringify({ Id: productId }),
+                dataType: "json",
+                success: function(response) {
+                  if(response.state) {
+                    Swal.fire({
+                      title: "刪除成功",
+                      icon: "success",
+                      confirmButtonColor: "#000000"
+                    }).then(() => {
+                      loadProducts();
+                    });
+                  }
+                },
+                error: function() {
+                  Swal.fire({
+                    title: "API介接錯誤!",
+                    text: "product_API.php?action=deleteProduct",
+                    icon: "error"
+                  });
+                }
+              });
+            }
+          });
+        });
+      }
+
+      function processOrderData(data) {
+          return {
+              labels: data.map(item => item.date),
+              values: data.map(item => item.count)
+          };
+      }
+
+      $(document).ready(function() {
+
+          $('[onclick="showContent(\'chart\')"]').click(function() {
+
+              setTimeout(function() {
+                  if (document.getElementById('myChart01') && 
+                      document.getElementById('myChart02') && 
+                      document.getElementById('myChart03')) {
+                      destroyCharts(); 
+                      initCharts(); 
+                  }
+              }, 100);
+          });
+          
+          if(window.location.hash === '#order') {
+              showContent('order');
+          }
+          
+          $("#orderStatusFilter").change(function() {
+              loadOrders();
+          });
+      });
+
+      $(document).ready(function() {
+        function getMonthlyStats() {
+          $.ajax({
+            type: "POST",
+            url: "car_API.php?action=getOrders",
+            data: JSON.stringify({ type: 'list' }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function(response) {
+              if (response.state && response.data) {
+                const currentDate = new Date();
+                const currentMonth = currentDate.getMonth();
+                const currentYear = currentDate.getFullYear();
+                
+                const monthlyOrders = response.data.filter(order => {
+                  const orderDate = new Date(order.Order_date);
+                  return orderDate.getMonth() === currentMonth && 
+                         orderDate.getFullYear() === currentYear;
+                });
+
+                $("#monthlyOrderCount").text(monthlyOrders.length);
+
+                const totalRevenue = monthlyOrders.reduce((sum, order) => {
+                  return sum + parseFloat(order.Total_Amount);
+                }, 0);
+
+                $("#monthlyRevenue").text(totalRevenue.toLocaleString());
+              }
+            },
+            error: function(xhr, status, error) {
+              console.error("獲取訂單數據失敗:", error);
+            }
+          });
+        }
+
+        getMonthlyStats();
+        
+        setInterval(getMonthlyStats, 60000);
+        
+      });
+
+      $(document).ready(function() {
+
+        $('#member_update_Modal').modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+
+        $('#member_update_Modal').on('hidden.bs.modal', function () {
+            $("#update_email, #update_phone, #update_address").removeClass('is-valid is-invalid').val('');
+        });
+
+        $("#member_update_confirm_btn").on('click', function() {
+            updateMember();
+        });
+  
+        bindFormValidation();
+      });
+
+      function displayMembers(members) {
+        $("#member-data").empty();
+        members.forEach(function(item) {
+          var strHTML = `
+            <div class="mb-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>帳號：</strong> ${item.Username}</p>
+                        <p><strong>Email：</strong> ${item.Email}</p>
+                        <p><strong>電話：</strong> ${item.Phone}</p>
+                        <p><strong>地址：</strong> ${item.Address}</p>
+                    </div>
+                    <div class="col-md-6 text-end mt-auto">
+                        <button class="btn btn-dark me-2 update-member-btn" 
+                            data-username="${item.Username}"
+                            data-email="${item.Email}"
+                            data-phone="${item.Phone}"
+                            data-address="${item.Address}"
+                            id="updateModal_updatebtn" data-bs-toggle="modal" data-bs-target="#member_update_Modal">
+                            更新資料
+                        </button>
+                        <button class="btn btn-secondary" onclick="deleteMember('${item.Username}')">
+                            刪除帳號
+                        </button>
+                    </div>
+                </div>
+                <hr>
+            </div>`;
+          $("#member-data").append(strHTML);
+        });
+
+        $("#member-data").on('click', '.update-member-btn', function() {
+            const $btn = $(this);
+            showUpdateModal(
+                $btn.data('username'),
+                $btn.data('email'),
+                $btn.data('phone'),
+                $btn.data('address')
+            );
+        });
+        
+        $("#totalMembers").text(members.length);
+      }
+
+    </script>
+  </body>
+</html> 
