@@ -206,7 +206,7 @@
     function checkLogin() {
       $.ajax({
         type: "POST",
-        url: "https://nianyu0.rf.gd/member_control_API_v1.php?action=checkUID",
+        url: "http://nianyu0.rf.gd/member_control_API_v1.php?action=checkUID",
         data: JSON.stringify({ "UID": getCookie("UID") }),
         dataType: "json",
         success: function (data) {

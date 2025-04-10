@@ -37,7 +37,7 @@ function handleImageUpload($file)
 function get_products()
 {
 
-    require_once("https://nianyu0.rf.gd/miniwoodker_conn_member.php");
+    require_once("https//nianyu0.rf.gd/miniwoodker_conn_member.php");
 
     $stmt  =  $conn->prepare("   SELECT * FROM `products`  ORDER BY created_at DESC   ");
     $stmt->execute();
@@ -71,7 +71,7 @@ function addproduct()
 
 
     if ($category != ""  && $name != ""  &&  $content != ""  &&  $price != ""  &&  $stock != ""  &&  $image != "") {
-        require_once("https://nianyu0.rf.gd/miniwoodker_conn_member.php");
+        require_once("http://nianyu0.rf.gd/miniwoodker_conn_member.php");
 
         $stmt  =  $conn->prepare("INSERT INTO `products`( `Category`,   `Name`,  `Content`, `Price`, `Stock`, `Image`) VALUES ( ?,?,?,?,?,? )");
         $stmt->bind_param("ssssss",   $category,  $name,  $content,  $price,  $stock,  $image);
@@ -156,7 +156,7 @@ function delete_product()
     $input  =  get_input_data();
     $Id   =  trim($input["Id"]);
 
-    require_once("https://nianyu0.rf.gd/miniwoodker_conn_member.php");
+    require_once("http://nianyu0.rf.gd/miniwoodker_conn_member.php");
 
     $stmt  =  $conn->prepare("   DELETE FROM `products`   WHERE   `ID` = ?    ");
     $stmt->bind_param("i",     $Id);
@@ -180,7 +180,7 @@ function delete_product()
 }
 
 function getProductSales() {
-    require_once("https://nianyu0.rf.gd/miniwoodker_conn_member.php");
+    require_once("http://nianyu0.rf.gd/miniwoodker_conn_member.php");
     
     try {
 

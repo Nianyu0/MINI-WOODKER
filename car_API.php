@@ -39,7 +39,7 @@ function  addToCart(){
         return;
     }
 
-    require_once("https://nianyu0.rf.gd/miniwoodker_conn_member.php");
+    require_once("http://nianyu0.rf.gd/miniwoodker_conn_member.php");
 
     try {
         $checkStmt = $conn->prepare("SELECT Stock, Name FROM products WHERE Id = ?");
@@ -104,7 +104,7 @@ function getCart() {
     $userId = $input['User_id'];
 
     if ($userId != "") {
-        require_once("https://nianyu0.rf.gd/miniwoodker_conn_member.php");
+        require_once("http://nianyu0.rf.gd/miniwoodker_conn_member.php");
 
         $stmt = $conn->prepare("
             SELECT 
@@ -153,7 +153,7 @@ function removeItem() {
     $productId = $input['Product_id'];
 
     if ($userId && $productId) {
-        require_once("https://nianyu0.rf.gd/miniwoodker_conn_member.php");
+        require_once("http://nianyu0.rf.gd/miniwoodker_conn_member.php");
 
         $stmt = $conn->prepare("DELETE FROM cart WHERE User_id = ? AND Product_id = ?");
         $stmt->bind_param("ii", $userId, $productId);
@@ -176,7 +176,7 @@ function checkout() {
     $userId = $input['User_id'];
 
     if ($userId) {
-        require_once("https://nianyu0.rf.gd/miniwoodker_conn_member.php");
+        require_once("http://nianyu0.rf.gd/miniwoodker_conn_member.php");
         
         try {
             $conn->begin_transaction();
@@ -272,7 +272,7 @@ function getOrders() {
     $userId = $input['User_id'] ?? null;
     $type = $input['type'] ?? null;
 
-    require_once("https://nianyu0.rf.gd/miniwoodker_conn_member.php");
+    require_once("http://nianyu0.rf.gd/miniwoodker_conn_member.php");
 
     if ($type === 'list') {
         $sql = "
@@ -366,7 +366,7 @@ function getOrderDetail() {
     $orderId = $input['Order_id'];
 
     if ($orderId) {
-        require_once("https://nianyu0.rf.gd/miniwoodker_conn_member.php");
+        require_once("http://nianyu0.rf.gd/miniwoodker_conn_member.php");
 
         $sql = "
             SELECT 
@@ -438,7 +438,7 @@ function updateOrderStatus() {
     $status = $input['Status'];
 
     if ($orderId && $status) {
-        require_once("https://nianyu0.rf.gd/miniwoodker_conn_member.php");
+        require_once("http://nianyu0.rf.gd/miniwoodker_conn_member.php");
 
         $stmt = $conn->prepare("UPDATE orders SET Status = ? WHERE Id = ?");
         
@@ -465,7 +465,7 @@ function updateOrderStatus() {
 }
 
 function getRevenue() {
-    require_once("https://nianyu0.rf.gd/miniwoodker_conn_member.php");
+    require_once("http://nianyu0.rf.gd/miniwoodker_conn_member.php");
     
     try {
         $period = isset($_GET['period']) ? $_GET['period'] : 'day';
@@ -539,7 +539,7 @@ function updateQuantity() {
     error_log("更新購物車: User_id=" . $userId . ", Product_id=" . $productId . ", Quantity=" . $quantity);
 
     if ($userId && $productId && $quantity > 0) {
-        require_once("https://nianyu0.rf.gd/miniwoodker_conn_member.php");
+        require_once("http://nianyu0.rf.gd/miniwoodker_conn_member.php");
 
         try {
             $stmt = $conn->prepare("
