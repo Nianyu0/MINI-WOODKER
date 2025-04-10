@@ -743,7 +743,7 @@
 
         $.ajax({
           type: "POST",
-          url: "product_API.php?action=getProducts",
+          url: "https://nianyu0.rf.gd/product_API.php?action=getProducts",
           dataType: "json",
           success: renderProducts,
 
@@ -885,7 +885,7 @@
 
           $.ajax({
             type: "POST",
-            url: "member_control_API_v1.php?action=checkUID",
+            url: "https://nianyu0.rf.gd/member_control_API_v1.php?action=checkUID",
             data: JSON.stringify({ UID: uid }),
             contentType: "application/json",
             dataType: "json",
@@ -904,7 +904,7 @@
 
                 $.ajax({
                   type: "POST",
-                  url: "car_API.php?action=addToCart",
+                  url: "https://nianyu0.rf.gd/car_API.php?action=addToCart",
                   data: JSON.stringify(json_data),
                   contentType: "application/json",
                   dataType: "json",
@@ -1001,7 +1001,7 @@
 
           $.ajax({
             type: "POST",
-            url: "member_control_API_v1.php?action=checkUID",
+            url: "https://nianyu0.rf.gd/member_control_API_v1.php?action=checkUID",
             data: JSON.stringify({ UID: uid }),
             contentType: "application/json",
             dataType: "json",
@@ -1019,7 +1019,7 @@
 
                 $.ajax({
                   type: "POST",
-                  url: "car_API.php?action=addToCart",
+                  url: "https://nianyu0.rf.gd/car_API.php?action=addToCart",
                   data: JSON.stringify(json_data),
                   contentType: "application/json",
                   dataType: "json",
@@ -1093,7 +1093,7 @@
         function checkLogin() {
           $.ajax({
             type: "POST",
-            url: "member_control_API_v1.php?action=checkUID",
+            url: "https://nianyu0.rf.gd/member_control_API_v1.php?action=checkUID",
             data: JSON.stringify({ "UID": getCookie("UID") }),
             dataType: "json",
             success: function (data) {

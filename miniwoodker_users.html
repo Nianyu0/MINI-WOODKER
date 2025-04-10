@@ -272,7 +272,7 @@
 
         $.ajax({
           type: "POST",
-          url: "member_control_API_v1.php?action=checkUID",
+          url: "https://nianyu0.rf.gd/member_control_API_v1.php?action=checkUID",
           data: JSON.stringify(JSONdata),
           dataType: "json",
           success: function(data) {
@@ -322,7 +322,7 @@
 
           $.ajax({
             type: "POST",
-            url: "member_control_API_v1.php?action=getownerdata",
+            url: "https://nianyu0.rf.gd/member_control_API_v1.php?action=getownerdata",
 
             data: JSON.stringify(json_data),
 
@@ -354,7 +354,7 @@
 
           $.ajax({
             type: "POST",
-            url: "member_control_API_v1.php?action=delete_member",
+            url: "https://nianyu0.rf.gd/member_control_API_v1.php?action=delete_member",
             data: JSON.stringify(json_data),
 
             dataType: "json",
@@ -383,7 +383,7 @@
 
             $.ajax({
               type: "POST",
-              url: "member_control_API_v1.php?action=update_member",
+              url: "https://nianyu0.rf.gd/member_control_API_v1.php?action=update_member",
               data: JSON.stringify(json_data),
 
               dataType: "json",
@@ -519,7 +519,7 @@
           if (result.isConfirmed) {
             $.ajax({
               type: "POST",
-              url: "member_control_API_v1.php?action=delete_member",
+              url: "https://nianyu0.rf.gd/member_control_API_v1.php?action=delete_member",
               data: JSON.stringify({
                 "Username": username,
                 "UID": getCookie("UID")
@@ -567,7 +567,7 @@
     function checkLogin() {
       $.ajax({
         type: "POST",
-        url: "member_control_API_v1.php?action=checkUID",
+        url: "https://nianyu0.rf.gd/member_control_API_v1.php?action=checkUID",
         data: JSON.stringify({ "UID": getCookie("UID") }),
         dataType: "json",
         success: function (data) {
@@ -625,7 +625,7 @@
         console.log("正在獲取會員資料:", getCookie("UID"));
         $.ajax({
           type: "POST",
-          url: "car_API.php?action=getOrders",
+          url: "https://nianyu0.rf.gd/car_API.php?action=getOrders",
           data: JSON.stringify({ 
             "User_id": getCookie("UID") 
           }),

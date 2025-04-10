@@ -10,6 +10,5 @@
                         echo   json_encode(   [  "statue" => false  ,  "message" => "連線失敗"  ]     ) ;    
                         exit ; }
 
-    
 ?>
 
