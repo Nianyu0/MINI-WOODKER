@@ -676,8 +676,8 @@
             json_data["UID"] = getCookie("UID");
 
             $.ajax({
-              type: "POST",
-              url: "http://nianyu0.rf.gd/member_control_API_v1.php?action=checkUID",
+              type: " GET",
+              url: "member_control_API_v1.php?action=checkUID",
               data: JSON.stringify(json_data),
 
               dataType: "json",
@@ -760,8 +760,8 @@
               console.log(JSON.stringify(json_data));
 
               $.ajax({
-                type: "POST",
-                url: "http://nianyu0.rf.gd/member_control_API_v1.php?action=checkNAME",
+                type: "GET",
+                url: "member_control_API_v1.php?action=checkNAME",
                 data: JSON.stringify(json_data),
 
                 dataType: "json",
@@ -913,8 +913,8 @@
               console.log(JSON.stringify(json_data));
 
               $.ajax({
-                type: "POST",
-                url: "http://nianyu0.rf.gd/member_control_API_v1.php?action=register",
+                type: "GET",
+                url: "member_control_API_v1.php?action=register",
                 data: JSON.stringify(json_data),
 
                 dataType: "json",
@@ -973,8 +973,8 @@
               console.log(JSON.stringify(json_data));
 
               $.ajax({
-                type: "POST",
-                url: "http://nianyu0.rf.gd/member_control_API_v1.php?action=login",
+                type: "GET",
+                url: "member_control_API_v1.php?action=login",
                 data: JSON.stringify(json_data),
 
                 dataType: "json",

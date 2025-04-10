@@ -793,8 +793,8 @@
       function loadProducts() {
         
         $.ajax({
-          type: "POST",
-          url: "http://nianyu0.rf.gd/product_API.php?action=getProducts",
+          type: "GET",
+          url: "product_API.php?action=getProducts",
           dataType: "json",
           success: showdata_checkUID,
           error: function() {
