@@ -121,7 +121,7 @@
     function checkLogin() {
       $.ajax({
         type: "POST",
-        url: "http://nianyu0.rf.gd/member_control_API_v1.php?action=checkUID",
+        url: "member_control_API_v1.php?action=checkUID",
         data: JSON.stringify({ UID: getCookie("UID") }),
         dataType: "json",
         success: function (data) {
@@ -183,7 +183,7 @@
 
       $.ajax({
         type: "POST",
-        url: "http://nianyu0.rf.gd/member_control_API_v1.php?action=checkUID",
+        url: "member_control_API_v1.php?action=checkUID",
         data: JSON.stringify({ UID: uid }),
         contentType: "application/json",
         dataType: "json",
@@ -193,7 +193,7 @@
 
             $.ajax({
               type: "POST",
-              url: "http://nianyu0.rf.gd/car_API.php?action=getCart",
+              url: "car_API.php?action=getCart",
               data: JSON.stringify({ User_id: memberId }),
               contentType: "application/json",
               dataType: "json",
@@ -349,7 +349,7 @@
 
       $.ajax({
         type: "POST",
-        url: "http://nianyu0.rf.gd/member_control_API_v1.php?action=checkUID",
+        url: "member_control_API_v1.php?action=checkUID",
         data: JSON.stringify({ UID: uid }),
         contentType: "application/json",
         dataType: "json",
@@ -369,7 +369,7 @@
 
             $.ajax({
               type: "POST",
-              url: "http://nianyu0.rf.gd/car_API.php?action=updateQuantity",
+              url: "car_API.php?action=updateQuantity",
               data: JSON.stringify(updateData),
               contentType: "application/json",
               dataType: "json",
@@ -441,7 +441,7 @@
 
       $.ajax({
         type: "POST",
-        url: "http://nianyu0.rf.gd/member_control_API_v1.php?action=checkUID",
+        url: "member_control_API_v1.php?action=checkUID",
         data: JSON.stringify({ UID: uid }),
         contentType: "application/json",
         dataType: "json",
@@ -461,7 +461,7 @@
               if (result.isConfirmed) {
                 $.ajax({
                   type: "POST",
-                  url: "http://nianyu0.rf.gd/car_API.php?action=removeItem",
+                  url: "car_API.php?action=removeItem",
                   data: JSON.stringify({
                     User_id: memberId,
                     Product_id: productId
@@ -492,7 +492,7 @@
 
       $.ajax({
         type: "POST",
-        url: "http://nianyu0.rf.gd/member_control_API_v1.php?action=checkUID",
+        url: "member_control_API_v1.php?action=checkUID",
         data: JSON.stringify({ UID: uid }),
         contentType: "application/json",
         dataType: "json",
@@ -512,7 +512,7 @@
               if (result.isConfirmed) {
                 $.ajax({
                   type: "POST",
-                  url: "http://nianyu0.rf.gd/car_API.php?action=checkout",
+                  url: "car_API.php?action=checkout",
                   data: JSON.stringify({
                     User_id: memberId
                   }),
