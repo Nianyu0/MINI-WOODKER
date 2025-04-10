@@ -89,35 +89,47 @@ MINI WOODKER 是一個結合前台與後台的木工產品銷售平台，提供�
 ## 🖼 網站畫面展示
 
 ### 🔹 首頁
+
 ![首頁](demo_img/home.jpg)
 
 ### 🔹 商品頁面與細節
+
 ![商品總覽](demo_img/shop.jpg)
+
 ![商品細節](demo_img/shop2.jpg)
 
 ### 🔹 購物車與結帳
+
 ![購物車](demo_img/car.jpg)
 
 ### 🔹 操作教學（Vue 步驟引導）
+
 ![教學頁](demo_img/teach.jpg)
 
 ### 🔹 榫接結構介紹
+
 ![榫接介紹](demo_img/tenonjoints.jpg)
 
 ### 🔹 會員中心
+
 ![會員中心](demo_img/users.jpg)
 
 ### 🔹 後台管理介面
-- 商品管理  
+
+- 商品管理
+- 
   ![商品管理](demo_img/admin1.jpg)
 
-- 會員管理  
+- 會員管理
+- 
   ![會員管理](demo_img/admin2.jpg)
 
-- 訂單管理  
+- 訂單管理
+- 
   ![訂單管理](demo_img/admin3.jpg)
 
-- 銷售統計圖表  
+- 銷售統計圖表
+- 
   ![統計圖](demo_img/admin4.jpg)
 
 
