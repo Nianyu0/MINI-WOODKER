@@ -86,10 +86,24 @@ MINI WOODKER 是一個結合前台與後台的木工產品銷售平台，提供�
 
 ## 📷 網站畫面展示
 
-### 🔹 首頁、榫接與教學頁面
-| 首頁 Home | 榫接 Tenon joints | 教學 Teaching |
-|----------|------------------|----------------|
-| ![](demo_img/home.png)<br>品牌主視覺與導覽內容 | ![](demo_img/tenonjoints.png)<br>展示不同榫接結構 | ![](demo_img/teach.png)<br>教學流程清楚易懂，適合初學者 |
+## 🏠 首頁、榫接與教學頁面
+
+### 首頁 Home
+![首頁畫面](demo_img/home.png)
+> 品牌主視覺與導覽內容
+
+### 榫接 Tenon joints
+<img src="demo_img/tenonjoints.png" width="49%" align="right">
+> 展示不同榫接結構
+
+### 教學 Teaching
+<img src="demo_img/teach.png" width="49%" align="right">
+> 教學流程清楚易懂，適合初學者
+
+
+<br clear="both"/>
+
+---
 
 ---
 
