@@ -84,10 +84,6 @@ MINI WOODKER 是一個結合前台與後台的木工產品銷售平台，提供�
 
 ---
 
----
-
-# MINI WOODKER 網站展示
-
 ## 📷 網站畫面展示
 
 ### 🔹 首頁、榫接與教學頁面
@@ -98,13 +94,37 @@ MINI WOODKER 是一個結合前台與後台的木工產品銷售平台，提供�
 ---
 
 ### 🛒 商店頁面相關功能
-| 商店 Shop | 商品詳細畫面 | 購物車 Car |
-|-----------|----------------|-------------|
-| ![](demo_img/shop.png)<br>產品瀏覽與分類選單 | ![](demo_img/shop2.jpg)<br>產品介紹與圖片放大檢視 | ![](demo_img/car.jpg)<br>加入購物車與結帳功能 |
 
----
+### 🛍️ 商店 Shop
+![shop](demo_img/shop.png)
+商品瀏覽與分類選單
 
-### 🔐 會員中心與後台管理
+### 🔍 商品詳細畫面
+![shop2](demo_img/shop2.jpg)
+產品介紹與圖片放大檢視
+
+### 🛒 購物車 Car
+![car](demo_img/car.jpg)
+加入購物車與結帳功能
+
+## 🔐 會員中心與後台管理
+
+### 👤 會員中心 Users
+![users](demo_img/users.png)
+查看與修改會員資料
+
+### 🛠️ 商品管理 Admin
+![admin1](demo_img/admin1.jpg)
+
+### 👥 會員管理 Admin
+![admin2](demo_img/admin2.jpg)
+
+### 📦 訂單管理 Admin
+![admin3](demo_img/admin3.jpg)
+
+### 📊 統計圖表分析 Admin
+![admin4](demo_img/admin4.jpg)
+
 | 會員中心 Users | 商品管理 Admin | 會員管理 Admin |
 |---------------|----------------|----------------|
 | ![](demo_img/users.png)<br>查看與修改會員資料 | ![](demo_img/admin1.jpg)<br>商品管理與更新操作 | ![](demo_img/admin2.jpg)<br>管理所有會員帳號 |
@@ -113,6 +133,7 @@ MINI WOODKER 是一個結合前台與後台的木工產品銷售平台，提供�
 |----------------|----------------|
 | ![](demo_img/admin3.jpg)<br>查看與處理每筆訂單 | ![](demo_img/admin4.jpg)<br>數據圖表呈現銷售與會員資訊 |
 
+---
 
 ## 📬 聯絡方式
 
