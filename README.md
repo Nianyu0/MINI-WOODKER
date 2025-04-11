@@ -105,40 +105,27 @@ MINI WOODKER 是一個結合前台與後台的木工產品銷售平台，提供�
 ![shop](demo_img/shop.png)
 商品瀏覽與分類選單
 
-### 🔍 商品詳細畫面
-![shop2](demo_img/shop2.jpg)
-產品介紹與圖片放大檢視
+## 🛒 商品詳情與購物車功能
 
-### 🛒 購物車 Car
-![car](demo_img/car.jpg)
-加入購物車與結帳功能
+| 商品詳情畫面 | 購物車 Car |
+| ------------- | ----------- |
+| ![](demo_img/shop2.jpg) | ![](demo_img/car.jpg) |
+| 產品介紹與圖片放大檢視 | 加入購物車並結帳功能 |
+
 
 ## 🔐 會員中心與後台管理
 
-### 👤 會員中心 Users
-![users](demo_img/users.png)
-查看與修改會員資料
+| 會員中心 Users | 會員管理 Admin |
+|---------------|----------------|
+| ![](demo_img/users.png)<br>查看與修改會員資料 | ![](demo_img/admin2.jpg)<br>管理所有會員帳號 |
 
-### 🛠️ 商品管理 Admin
-![admin1](demo_img/admin1.jpg)
-
-### 👥 會員管理 Admin
-![admin2](demo_img/admin2.jpg)
-
-### 📦 訂單管理 Admin
-![admin3](demo_img/admin3.jpg)
-
-### 📊 統計圖表分析 Admin
-![admin4](demo_img/admin4.jpg)
-
-| 會員中心 Users | 商品管理 Admin | 會員管理 Admin |
-|---------------|----------------|----------------|
-| ![](demo_img/users.png)<br>查看與修改會員資料 | ![](demo_img/admin1.jpg)<br>商品管理與更新操作 | ![](demo_img/admin2.jpg)<br>管理所有會員帳號 |
-
-| 訂單管理 Admin | 統計分析 Admin |
+| 商品管理 Admin | 訂單管理 Admin |
 |----------------|----------------|
-| ![](demo_img/admin3.jpg)<br>查看與處理每筆訂單 | ![](demo_img/admin4.jpg)<br>數據圖表呈現銷售與會員資訊 |
+| ![](demo_img/admin3.jpg)<br>查看與處理每筆訂單 |![admin4](demo_img/admin4.jpg) ![](demo_img/admin1.jpg)<br>商品管理與更新操作 |
 
+統計圖表分析 Admin
+![admin2](demo_img/admin2.jpg)
+<br>數據圖表呈現銷售與會員資訊
 ---
 
 ## 📬 聯絡方式
