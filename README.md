@@ -117,15 +117,17 @@ MINI WOODKER 是一個結合前台與後台的木工產品銷售平台，提供�
 
 | 會員中心 Users | 會員管理 Admin |
 |---------------|----------------|
-| ![](demo_img/users.png)<br>查看與修改會員資料 | ![](demo_img/admin2.jpg)<br>管理所有會員帳號 |
+| ![](demo_img/users.png)|
+| 查看與修改會員資料 | 管理所有會員帳號 |
 
 | 商品管理 Admin | 訂單管理 Admin |
 |----------------|----------------|
-| ![](demo_img/admin3.jpg)<br>查看與處理每筆訂單 |![admin4](demo_img/admin4.jpg) ![](demo_img/admin1.jpg)<br>商品管理與更新操作 |
+| ![](demo_img/admin3.jpg)
+| 查看與處理每筆訂單 | 商品管理與更新操作 |
 
-統計圖表分析 Admin
+### 統計圖表分析 Admin
 ![admin2](demo_img/admin2.jpg)
-<br>數據圖表呈現銷售與會員資訊
+數據圖表呈現銷售與會員資訊
 ---
 
 ## 📬 聯絡方式
