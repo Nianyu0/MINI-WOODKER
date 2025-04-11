@@ -24,7 +24,7 @@ function  member_register()
     if (isset($input["user_Name"],  $input["pass_Word"],  $input["e_Mail"],  $input["user_Phone"],  $input["user_Address"])) {
 
         if ($user_name  &&  $pass_word  &&  $e_mail  &&  $Phone  &&  $Address) {
-            require_once("http://nianyu0.rf.gd/miniwoodker_conn_member.php");
+            require_once("miniwoodker_conn_member.php");
 
             $stmt  =  $conn->prepare("INSERT INTO  `member`( `Username`, `Password`, `Email`, `Phone`, `Address`)   VALUES (  ?  ,  ?  ,  ?  ,  ?  ,  ?  )");
             $stmt->bind_param("sssss",      $user_name,  $pass_word,  $e_mail,  $Phone,  $Address);
@@ -55,7 +55,7 @@ function  member_login()
     if (isset($input["user_Name"],  $input["pass_Word"])) {
 
         if ($user_name  &&  $pass_word) {
-            require_once("http://nianyu0.rf.gd/miniwoodker_conn_member.php");
+            require_once("miniwoodker_conn_member.php");
 
             $stmt  =  $conn->prepare("   SELECT    *    FROM `member` WHERE  `Username` =  ?   ");
             $stmt->bind_param("s",    $user_name);
@@ -108,7 +108,7 @@ function  member_checkUID()
 
     if (isset($input["UID"])) {
         if ($user_uid) {
-            require_once("http://nianyu0.rf.gd/miniwoodker_conn_member.php");
+            require_once("miniwoodker_conn_member.php");
 
             $stmt  =  $conn->prepare("   SELECT    *    FROM `member` WHERE  `UID` =  ?   ");
             $stmt->bind_param("s",    $user_uid);
@@ -145,7 +145,7 @@ function  member_checkNAME()
     if (isset($input["user_Name"])) {
 
         if ($user_name) {
-            require_once("http://nianyu0.rf.gd/miniwoodker_conn_member.php");
+            require_once("miniwoodker_conn_member.php");
 
             $stmt  =  $conn->prepare("   SELECT    *    FROM `member` WHERE  `Username` =  ?   ");
 
@@ -176,7 +176,7 @@ function  member_checkNAME()
 
 function  get_SQL_member()
 {
-    require_once("http://nianyu0.rf.gd/miniwoodker_conn_member.php");
+    require_once("miniwoodker_conn_member.php");
 
     $stmt  =  $conn->prepare("   SELECT    *    FROM   `member`      ");
     $stmt->execute();
@@ -203,7 +203,7 @@ function  get_SQL_getownerdata()
     $input  =  get_input_data();
     $UID    =  trim($input["UID"]);
 
-    require_once("http://nianyu0.rf.gd/miniwoodker_conn_member.php");
+    require_once("miniwoodker_conn_member.php");
 
     $stmt  =  $conn->prepare("   SELECT    *    FROM   `member`  Where  `UID`=?  ");
     $stmt->bind_param("s",    $UID);
@@ -268,7 +268,7 @@ function  delete_member()
     if (isset($input["Username"])) {
 
         if ($user_name) {
-            require_once("http://nianyu0.rf.gd/miniwoodker_conn_member.php");
+            require_once("miniwoodker_conn_member.php");
 
             $stmt  =  $conn->prepare("   DELETE  FROM  `member`   WHERE   `Username` = ?    ");
             $stmt->bind_param("s",     $user_name);
@@ -329,9 +329,6 @@ if ($_SERVER["REQUEST_METHOD"]  ===  "POST") {
             member_checkNAME();
             break;
 
-        case  "checkNAME":
-            member_checkNAME();
-            break;
 
         default:
             respond(false,  "GET之action資訊錯誤");
