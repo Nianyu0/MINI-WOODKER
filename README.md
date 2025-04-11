@@ -86,51 +86,32 @@ MINI WOODKER 是一個結合前台與後台的木工產品銷售平台，提供�
 
 ---
 
-## 🖼 網站畫面展示
+# MINI WOODKER 網站展示
 
-### 🔹 首頁
+## 📷 網站畫面展示
 
-![首頁](demo_img/home.jpg)
+### 🔹 首頁、榫接與教學頁面
+| 首頁 Home | 榫接 Tenon joints | 教學 Teaching |
+|----------|------------------|----------------|
+| ![](demo_images/home.png)<br>品牌主視覺與導覽內容 | ![](demo_images/tenonjoints.png)<br>展示不同榫接結構 | ![](demo_images/teach.png)<br>教學流程清楚易懂，適合初學者 |
 
-### 🔹 商品頁面與細節
+---
 
-![商品總覽](demo_img/shop.jpg)
+### 🛒 商店頁面相關功能
+| 商店 Shop | 商品詳細畫面 | 購物車 Car |
+|-----------|----------------|-------------|
+| ![](demo_images/shop.png)<br>產品瀏覽與分類選單 | ![](demo_images/shop2.jpg)<br>產品介紹與圖片放大檢視 | ![](demo_images/car.jpg)<br>加入購物車與結帳功能 |
 
-![商品細節](demo_img/shop2.jpg)
+---
 
-### 🔹 購物車與結帳
+### 🔐 會員中心與後台管理
+| 會員中心 Users | 商品管理 Admin | 會員管理 Admin |
+|---------------|----------------|----------------|
+| ![](demo_images/users.png)<br>查看與修改會員資料 | ![](demo_images/admin1.jpg)<br>商品管理與更新操作 | ![](demo_images/admin2.jpg)<br>管理所有會員帳號 |
 
-![購物車](demo_img/car.jpg)
-
-### 🔹 操作教學（Vue 步驟引導）
-
-![教學頁](demo_img/teach.jpg)
-
-### 🔹 榫接結構介紹
-
-![榫接介紹](demo_img/tenonjoints.jpg)
-
-### 🔹 會員中心
-
-![會員中心](demo_img/users.jpg)
-
-### 🔹 後台管理介面
-
-- 商品管理
-- 
-  ![商品管理](demo_img/admin1.jpg)
-
-- 會員管理
-- 
-  ![會員管理](demo_img/admin2.jpg)
-
-- 訂單管理
-- 
-  ![訂單管理](demo_img/admin3.jpg)
-
-- 銷售統計圖表
-- 
-  ![統計圖](demo_img/admin4.jpg)
+| 訂單管理 Admin | 統計分析 Admin |
+|----------------|----------------|
+| ![](demo_images/admin3.jpg)<br>查看與處理每筆訂單 | ![](demo_images/admin4.jpg)<br>數據圖表呈現銷售與會員資訊 |
 
 
 ## 📬 聯絡方式
